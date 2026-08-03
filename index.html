@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#12131C">
+    <title>Ilmiy va Oddiy Kalkulyator Ilovasi</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js');
+        }
+    </script>
+</head>
+<body>
+    <div class="calculator-app">
+        <!-- Header / Controls -->
+        <header class="app-header">
+            <button id="toggleHistoryBtn" class="icon-btn" title="Tarix">📜</button>
+            <h1 class="app-title">Kalkulyator</h1>
+            <button id="toggleModeBtn" class="mode-chip">Ilmiy Rejim</button>
+        </header>
+
+        <!-- Main Display & History Sidebar -->
+        <div class="display-container">
+            <div id="historyOverlay" class="history-panel hidden">
+                <div class="history-header">
+                    <span>Hisob-kitoblar Tarixi</span>
+                    <button id="clearHistoryBtn" class="text-btn">Tozalash</button>
+                </div>
+                <ul id="historyList" class="history-list">
+                    <li class="empty-msg">Hali hisoblashlar mavjud emas</li>
+                </ul>
+            </div>
+            
+            <div class="display-box">
+                <div id="equationDisplay" class="equation-display"></div>
+                <div id="mainDisplay" class="main-display">0</div>
+            </div>
+        </div>
+
+        <!-- Memory Buttons Row -->
+        <div class="memory-keypad">
+            <button class="btn mem-btn" id="memClear" title="Memory Clear">MC</button>
+            <button class="btn mem-btn" id="memRecall" title="Memory Recall">MR</button>
+            <button class="btn mem-btn" id="memAdd" title="Memory Add">M+</button>
+            <button class="btn mem-btn" id="memSub" title="Memory Subtract">M-</button>
+        </div>
+
+        <!-- Scientific Keys Row -->
+        <div id="scientificKeypad" class="scientific-keypad hidden">
+            <button class="btn sci-btn" data-action="sin">sin</button>
+            <button class="btn sci-btn" data-action="cos">cos</button>
+            <button class="btn sci-btn" data-action="tan">tan</button>
+            <button class="btn sci-btn" data-action="ln">ln</button>
+            <button class="btn sci-btn" data-action="√">√</button>
+            <button class="btn sci-btn" data-action="x²">x²</button>
+            <button class="btn sci-btn" data-op="^">^</button>
+            <button class="btn sci-btn" data-action="%">%</button>
+        </div>
+
+        <!-- Standard Keypad Grid -->
+        <div class="standard-keypad">
+            <button class="btn clear-btn" id="clearBtn">C</button>
+            <button class="btn backspace-btn" id="backspaceBtn">⌫</button>
+            <button class="btn op-btn" data-action="%">%</button>
+            <button class="btn op-btn" data-op="÷">÷</button>
+
+            <button class="btn num-btn" data-num="7">7</button>
+            <button class="btn num-btn" data-num="8">8</button>
+            <button class="btn num-btn" data-num="9">9</button>
+            <button class="btn op-btn" data-op="×">×</button>
+
+            <button class="btn num-btn" data-num="4">4</button>
+            <button class="btn num-btn" data-num="5">5</button>
+            <button class="btn num-btn" data-num="6">6</button>
+            <button class="btn op-btn" data-op="-">-</button>
+
+            <button class="btn num-btn" data-num="1">1</button>
+            <button class="btn num-btn" data-num="2">2</button>
+            <button class="btn num-btn" data-num="3">3</button>
+            <button class="btn op-btn" data-op="+">+</button>
+
+            <button class="btn num-btn zero-btn" data-num="0">0</button>
+            <button class="btn num-btn" id="decimalBtn">.</button>
+            <button class="btn equals-btn" id="equalsBtn">=</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
