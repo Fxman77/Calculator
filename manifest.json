@@ -1,23 +1,56 @@
 {
-  "name": "Ilmiy Kalkulyator",
-  "short_name": "Kalkulyator",
-  "description": "Oddiy va Ilmiy kalkulyator ilovasi",
-  "start_url": "./index.html",
+  "id": "com.calculator.app",
+  "name": "Kalkulyator va Birliklar",
+  "short_name": "Calculator",
+  "description": "Zamonaviy, tezkor kalkulyator va 12 tildagi birliklar almashtirgichi. Dark va Light rejimlari.",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "display_override": ["fullscreen", "standalone"],
-  "orientation": "portrait",
-  "background_color": "#12131C",
-  "theme_color": "#12131C",
+  "display_override": ["standalone", "fullscreen"],
+  "orientation": "any",
+  "background_color": "#121824",
+  "theme_color": "#121824",
+  "categories": ["utilities", "productivity", "education"],
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/564/564429.png",
+      "src": "/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/564/564429.png",
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Kalkulyator va Birliklar Almashtirgichi"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Kalkulyator va Birliklar Almashtirgichi"
     }
   ]
 }

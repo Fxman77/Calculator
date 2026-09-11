@@ -1,5 +1,6 @@
 /* -------------------------------------------------------------
-   CALCULATOR DESIGN SYSTEM: DARK (VARIANT A) & LIGHT (VARIANT B)
+   CALCULATOR DESIGN SYSTEM: DARK, LIGHT, GOLD LUXE & CYBERPUNK
+   PRO MONETIZATION & ADMOB INTEGRATION READY
    ------------------------------------------------------------- */
 
 /* Dark Theme (Variant A - Slate Gray High Contrast) */
@@ -76,6 +77,80 @@ body.light-theme {
     --input-bg: #F8FAFC;
 }
 
+/* PRO EXCLUSIVE THEME 1: GOLD LUXE */
+body.gold-theme {
+    --bg-main: #1A160A;
+    --bg-gradient: linear-gradient(135deg, #241D0D 0%, #0F0C05 100%);
+    --card-bg: #2A2211;
+    --card-border: rgba(245, 158, 11, 0.3);
+    --text-main: #FDF4E3;
+    --text-muted: #D97706;
+    
+    --display-bg: #141007;
+    --display-border: rgba(245, 158, 11, 0.2);
+    
+    --num-btn-bg: #3D3117;
+    --num-btn-hover: #4E3F1F;
+    --num-btn-text: #FFFBEB;
+    
+    --op-btn-bg: #D97706;
+    --op-btn-hover: #B45309;
+    --op-btn-text: #FFFFFF;
+    
+    --clear-btn-bg: #EF4444;
+    --clear-btn-hover: #DC2626;
+    
+    --equals-btn-bg: #F59E0B;
+    --equals-btn-hover: #D97706;
+    --equals-btn-text: #1E1B0E;
+    
+    --sci-btn-bg: #2E2512;
+    --sci-btn-text: #FDE68A;
+    
+    --mem-btn-bg: #1E170A;
+    --mem-btn-text: #F59E0B;
+    
+    --select-bg: #3D3117;
+    --input-bg: #141007;
+}
+
+/* PRO EXCLUSIVE THEME 2: CYBERPUNK NEON */
+body.cyberpunk-theme {
+    --bg-main: #0D0221;
+    --bg-gradient: linear-gradient(135deg, #0F051D 0%, #03001E 100%);
+    --card-bg: #190A38;
+    --card-border: rgba(236, 72, 153, 0.4);
+    --text-main: #F43F5E;
+    --text-muted: #A855F7;
+    
+    --display-bg: #0A0118;
+    --display-border: rgba(168, 85, 247, 0.3);
+    
+    --num-btn-bg: #2B1055;
+    --num-btn-hover: #3B1677;
+    --num-btn-text: #F0ABFC;
+    
+    --op-btn-bg: #A855F7;
+    --op-btn-hover: #9333EA;
+    --op-btn-text: #FFFFFF;
+    
+    --clear-btn-bg: #F43F5E;
+    --clear-btn-hover: #E11D48;
+    
+    --equals-btn-bg: #06B6D4;
+    --equals-btn-hover: #0891B2;
+    --equals-btn-text: #0D0221;
+    
+    --sci-btn-bg: #1E0B3B;
+    --sci-btn-text: #38BDF8;
+    
+    --mem-btn-bg: #0F0326;
+    --mem-btn-text: #06B6D4;
+    
+    --select-bg: #2B1055;
+    --input-bg: #0A0118;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -89,6 +164,7 @@ html {
     width: 100%;
     height: 100%;
     height: 100dvh;
+    overflow: hidden;
 }
 
 body {
@@ -106,15 +182,16 @@ body {
     transition: background 0.3s ease, color 0.3s ease;
 }
 
+/* CONTAINER */
 .calculator-app {
     width: 100%;
     height: 100%;
     height: 100dvh;
-    max-width: 460px;
+    max-width: 480px;
     background: var(--card-bg);
     backdrop-filter: blur(24px);
     border-radius: 0;
-    padding: max(16px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+    padding: max(8px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -126,11 +203,12 @@ body {
 @media (min-width: 500px) and (min-height: 680px) {
     .calculator-app {
         height: auto;
-        min-height: 660px;
-        max-height: 92vh;
+        min-height: 620px;
+        max-height: 94vh;
         border-radius: 28px;
         border: 1px solid var(--card-border);
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        padding: 14px 18px;
     }
 }
 
@@ -138,23 +216,49 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2px 0 10px 0;
+    padding: 2px 0 4px 0;
+    flex-shrink: 0;
 }
 
-/* Header Action Controls (Language + Theme) */
-.header-actions {
+/* Secondary Toolbar Strip (Theme + Language) */
+.toolbar-strip {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+    margin-bottom: 6px;
+    flex-shrink: 0;
+}
+
+.pro-chip {
+    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+    color: #FFFFFF;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 14px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+    transition: all 0.2s ease;
+}
+
+.pro-chip.active-pro {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+}
+
+.pro-chip:hover {
+    transform: scale(1.05);
 }
 
 .lang-select {
     background: var(--display-bg);
     border: 1px solid var(--card-border);
     color: var(--text-main);
-    padding: 6px 8px;
-    border-radius: 16px;
-    font-size: 0.8rem;
+    padding: 6px 10px;
+    border-radius: 14px;
+    font-size: 0.82rem;
     font-weight: 700;
     cursor: pointer;
     outline: none;
@@ -165,12 +269,29 @@ body {
     transform: scale(1.04);
 }
 
+/* Theme Switcher Button */
+.theme-chip {
+    background: var(--display-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-main);
+    padding: 6px 12px;
+    border-radius: 14px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.theme-chip:hover {
+    transform: scale(1.04);
+}
+
 /* Navigation Tabs */
 .nav-tabs {
     display: flex;
     background: var(--display-bg);
     padding: 3px;
-    border-radius: 20px;
+    border-radius: 18px;
     border: 1px solid var(--card-border);
 }
 
@@ -178,9 +299,9 @@ body {
     background: none;
     border: none;
     color: var(--text-muted);
-    padding: 6px 12px;
-    border-radius: 16px;
-    font-size: 0.85rem;
+    padding: 5px 12px;
+    border-radius: 14px;
+    font-size: 0.82rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -195,9 +316,9 @@ body {
 .icon-btn {
     background: var(--display-bg);
     border: 1px solid var(--card-border);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     cursor: pointer;
-    padding: 6px 10px;
+    padding: 5px 9px;
     border-radius: 14px;
     transition: all 0.2s ease;
 }
@@ -206,42 +327,27 @@ body {
     transform: scale(1.05);
 }
 
-/* Theme Switcher Button */
-.theme-chip {
-    background: var(--display-bg);
-    border: 1px solid var(--card-border);
-    color: var(--text-main);
-    padding: 6px 10px;
-    border-radius: 16px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.theme-chip:hover {
-    transform: scale(1.04);
-}
-
-/* Sub Controls Row (Mode toggle + Memory strip) */
+/* Sub Controls Row */
 .sub-controls-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
+    gap: 6px;
+    margin-bottom: 6px;
+    flex-shrink: 0;
 }
 
 .mode-chip {
     background: var(--display-bg);
     border: 1px solid var(--card-border);
     color: var(--text-muted);
-    padding: 6px 12px;
-    border-radius: 16px;
-    font-size: 0.8rem;
+    padding: 5px 10px;
+    border-radius: 14px;
+    font-size: 0.78rem;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
 .mode-chip:hover {
@@ -255,6 +361,8 @@ body {
     justify-content: space-between;
     flex: 1;
     width: 100%;
+    min-height: 0;
+    overflow: hidden;
 }
 
 .app-section.hidden {
@@ -264,17 +372,17 @@ body {
 /* DISPLAY BOX */
 .display-container {
     background: var(--display-bg);
-    border-radius: 20px;
-    padding: 18px 24px;
+    border-radius: 18px;
+    padding: clamp(10px, 2vh, 16px) clamp(14px, 3vw, 20px);
     flex: 1;
-    min-height: 120px;
-    max-height: 190px;
+    min-height: 70px;
+    max-height: 22vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     position: relative;
     border: 1px solid var(--display-border);
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .display-box {
@@ -285,28 +393,29 @@ body {
 }
 
 .equation-display {
-    font-size: 1.1rem;
+    font-size: clamp(0.85rem, 2vh, 1.05rem);
     font-weight: 600;
     color: var(--text-muted);
-    min-height: 28px;
+    min-height: 22px;
     text-align: right;
     width: 100%;
     word-break: break-all;
-    padding-right: 4px;
+    padding-right: 2px;
 }
 
 .main-display {
-    font-size: 3.4rem;
+    font-size: clamp(2rem, 6vh, 3.2rem);
     font-weight: 800;
     text-align: right;
     width: 100%;
     word-break: break-all;
     transition: font-size 0.2s ease;
-    padding-right: 4px;
+    padding-right: 2px;
     color: var(--text-main);
+    line-height: 1.1;
 }
 
-/* HISTORY SIDEBAR */
+/* HISTORY SIDEBAR & DATA BACKUP BUTTONS */
 .history-panel {
     position: absolute;
     top: 0;
@@ -314,8 +423,8 @@ body {
     right: 0;
     bottom: 0;
     background: var(--display-bg);
-    border-radius: 20px;
-    padding: 16px 20px;
+    border-radius: 18px;
+    padding: 12px 14px;
     display: flex;
     flex-direction: column;
     z-index: 10;
@@ -330,12 +439,29 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
-    font-size: 0.95rem;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
     font-weight: 700;
     color: var(--text-muted);
     border-bottom: 1px solid var(--card-border);
-    padding-bottom: 8px;
+    padding-bottom: 4px;
+}
+
+.history-actions-row {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.action-btn {
+    background: var(--num-btn-bg);
+    color: var(--text-main);
+    border: 1px solid var(--card-border);
+    padding: 3px 6px;
+    border-radius: 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    cursor: pointer;
 }
 
 .text-btn {
@@ -343,8 +469,9 @@ body {
     border: none;
     color: var(--clear-btn-bg);
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     font-weight: 700;
+    padding-left: 4px;
 }
 
 .history-list {
@@ -353,15 +480,15 @@ body {
     max-height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 }
 
 .history-item {
     text-align: right;
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: var(--text-main);
-    padding: 6px 0;
+    padding: 4px 0;
     border-bottom: 1px dashed var(--card-border);
     cursor: pointer;
 }
@@ -372,27 +499,27 @@ body {
 
 .empty-msg {
     color: var(--text-muted);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 16px;
 }
 
 /* Memory Buttons Row */
 .memory-keypad {
     display: flex;
-    gap: 6px;
+    gap: 4px;
     flex: 1;
 }
 
 .mem-btn {
     background: var(--mem-btn-bg);
     color: var(--mem-btn-text);
-    font-size: 0.85rem;
+    font-size: clamp(0.7rem, 1.8vh, 0.82rem);
     font-weight: 700;
-    padding: 6px 0;
-    border-radius: 12px;
+    padding: 4px 0;
+    border-radius: 10px;
     flex: 1;
-    min-height: 36px;
+    min-height: 30px;
     border: 1px solid var(--card-border);
 }
 
@@ -403,9 +530,10 @@ body {
 .scientific-keypad {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    margin-bottom: 8px;
+    gap: clamp(4px, 1vh, 8px);
+    margin-bottom: 6px;
     transition: all 0.3s ease;
+    flex-shrink: 0;
 }
 
 .scientific-keypad.hidden {
@@ -417,30 +545,29 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    gap: 12px;
-    flex: 2;
-    min-height: 320px;
+    gap: clamp(6px, 1.4vh, 10px);
+    flex: 3;
+    min-height: 0;
 }
 
-/* BUTTON BASE & HAPTIC TOUCH FEEDBACK */
+/* BUTTON BASE */
 .btn {
     border: none;
     outline: none;
-    border-radius: 18px;
+    border-radius: clamp(12px, 2.5vw, 18px);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.6rem;
+    font-size: clamp(1.2rem, 3.5vh, 1.6rem);
     font-weight: 700;
     color: var(--text-main);
     cursor: pointer;
     transition: transform 0.1s ease, filter 0.1s ease, background 0.2s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
     height: 100%;
-    min-height: 56px;
+    min-height: 0;
 }
 
-/* Pressed visual feedback */
 .btn:active {
     transform: scale(0.92);
     filter: brightness(0.9);
@@ -463,7 +590,7 @@ body {
     background: var(--op-btn-bg);
     color: var(--op-btn-text);
     font-weight: 800;
-    font-size: 1.7rem;
+    font-size: clamp(1.3rem, 3.8vh, 1.7rem);
 }
 .op-btn:hover {
     background: var(--op-btn-hover);
@@ -495,11 +622,11 @@ body {
 .sci-btn {
     background: var(--sci-btn-bg);
     color: var(--sci-btn-text);
-    font-size: 1.15rem;
+    font-size: clamp(0.9rem, 2.2vh, 1.1rem);
     font-weight: 700;
-    padding: 10px 0;
-    border-radius: 14px;
-    min-height: 46px;
+    padding: 6px 0;
+    border-radius: 12px;
+    min-height: 36px;
     border: 1px solid var(--card-border);
 }
 .sci-btn:hover {
@@ -509,23 +636,24 @@ body {
 /* Converter Styles */
 .converter-box {
     background: var(--display-bg);
-    border-radius: 20px;
-    padding: 16px 20px;
+    border-radius: 18px;
+    padding: clamp(10px, 2vh, 14px) clamp(12px, 3vw, 16px);
     border: 1px solid var(--display-border);
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: 12px;
+    gap: 8px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
 }
 
 .field-group {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .field-label {
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     font-weight: 700;
     color: var(--text-muted);
 }
@@ -534,9 +662,9 @@ body {
     background: var(--select-bg);
     color: var(--text-main);
     border: 1px solid var(--card-border);
-    border-radius: 14px;
-    padding: 10px 14px;
-    font-size: 0.95rem;
+    border-radius: 12px;
+    padding: 8px 10px;
+    font-size: 0.88rem;
     font-weight: 700;
     outline: none;
     cursor: pointer;
@@ -544,7 +672,7 @@ body {
 
 .convert-row {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     align-items: center;
 }
 
@@ -553,9 +681,9 @@ body {
     background: var(--input-bg);
     border: 1px solid var(--card-border);
     color: var(--text-main);
-    border-radius: 14px;
-    padding: 12px 14px;
-    font-size: 1.4rem;
+    border-radius: 12px;
+    padding: 8px 10px;
+    font-size: clamp(1.1rem, 3vh, 1.3rem);
     font-weight: 700;
     outline: none;
     width: 50%;
@@ -573,17 +701,17 @@ body {
 .swap-icon-container {
     display: flex;
     justify-content: center;
-    margin: -4px 0;
+    margin: -2px 0;
 }
 
 .swap-btn {
     background: var(--op-btn-bg);
     color: var(--op-btn-text);
     border: none;
-    width: 38px;
-    height: 38px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    font-size: 1.1rem;
+    font-size: 1rem;
     cursor: pointer;
     transition: transform 0.2s ease;
 }
@@ -595,12 +723,159 @@ body {
 .converter-keypad {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    flex: 1;
+    grid-template-rows: repeat(4, 1fr);
+    gap: clamp(6px, 1.4vh, 10px);
+    flex: 2;
+    min-height: 0;
+}
+
+/* AdMob Banner Container */
+.admob-banner {
+    background: var(--display-bg);
+    border: 1px dashed var(--card-border);
+    border-radius: 12px;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.admob-banner.hidden-pro {
+    display: none !important;
+}
+
+.ad-label {
+    background: #EAB308;
+    color: #000000;
+    font-weight: 800;
+    padding: 1px 4px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+}
+
+/* PRO UPGRADE MODAL DIALOG */
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+.modal-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 24px 20px;
+    width: 100%;
+    max-width: 380px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.pro-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.pro-crown {
+    font-size: 2.6rem;
+}
+
+.pro-header h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #F59E0B;
+}
+
+.pro-header p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.pro-benefits {
+    list-style: none;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.88rem;
+    background: var(--display-bg);
+    padding: 14px;
+    border-radius: 16px;
+    border: 1px solid var(--display-border);
+}
+
+.pro-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.buy-pro-btn {
+    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+    color: #FFFFFF;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+    transition: transform 0.1s ease;
+}
+
+.buy-pro-btn:active {
+    transform: scale(0.96);
+}
+
+.secondary-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 /* RTL Support for Arabic (ar) */
 [dir="rtl"] .app-header {
+    flex-direction: row-reverse;
+}
+[dir="rtl"] .toolbar-strip {
     flex-direction: row-reverse;
 }
 [dir="rtl"] .sub-controls-row {
@@ -616,4 +891,7 @@ body {
 }
 [dir="rtl"] .convert-row {
     flex-direction: row-reverse;
+}
+[dir="rtl"] .pro-benefits {
+    text-align: right;
 }

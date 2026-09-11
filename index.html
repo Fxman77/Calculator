@@ -8,11 +8,22 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#121824">
     <title>Kalkulyator va Birliklar Almashtirgichi</title>
+    
+    <!-- PWA Icons Header Links -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png">
+
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Google AdMob / Ads SDK Integration (Configured with Official Test Ad ID for Closed Testing) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-app-pub-3940256099942544" crossorigin="anonymous"></script>
+
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('./sw.js');
@@ -21,7 +32,7 @@
 </head>
 <body class="dark-theme">
     <div class="calculator-app">
-        <!-- Header / Controls -->
+        <!-- Header Row 1: History, Navigation Tabs, PRO Badge -->
         <header class="app-header">
             <button id="toggleHistoryBtn" class="icon-btn" title="Tarix">📜</button>
             
@@ -30,26 +41,28 @@
                 <button id="converterTabBtn" class="tab-btn" data-i18n="converterTab">📏 Birliklar</button>
             </div>
 
-            <div class="header-actions">
-                <!-- 12 Top World Languages Select Dropdown -->
-                <select id="langSelect" class="lang-select" title="Tilni tanlash / Select Language">
-                    <option value="uz">🇺🇿 UZ</option>
-                    <option value="en">🇬🇧 EN</option>
-                    <option value="es">🇪🇸 ES</option>
-                    <option value="pt">🇧🇷 PT</option>
-                    <option value="ru">🇷🇺 RU</option>
-                    <option value="hi">🇮🇳 HI</option>
-                    <option value="de">🇩🇪 DE</option>
-                    <option value="fr">🇫🇷 FR</option>
-                    <option value="id">🇮🇩 ID</option>
-                    <option value="ar">🇸🇦 AR (RTL)</option>
-                    <option value="ja">🇯🇵 JA</option>
-                    <option value="ko">🇰🇷 KO</option>
-                </select>
-
-                <button id="themeToggleBtn" class="theme-chip" title="Mavzuni almashtirish">☀️ Light</button>
-            </div>
+            <button id="proBadgeBtn" class="pro-chip" title="PRO statusini oshirish">⭐ PRO</button>
         </header>
+
+        <!-- Secondary Toolbar Strip: Theme Switcher & Language Selector -->
+        <div class="toolbar-strip">
+            <button id="themeToggleBtn" class="theme-chip" title="Mavzuni almashtirish">☀️ Light</button>
+
+            <select id="langSelect" class="lang-select" title="Tilni tanlash / Select Language">
+                <option value="uz">🇺🇿 UZ</option>
+                <option value="en">🇬🇧 EN</option>
+                <option value="es">🇪🇸 ES</option>
+                <option value="pt">🇧🇷 PT</option>
+                <option value="ru">🇷🇺 RU</option>
+                <option value="hi">🇮🇳 HI</option>
+                <option value="de">🇩🇪 DE</option>
+                <option value="fr">🇫🇷 FR</option>
+                <option value="id">🇮🇩 ID</option>
+                <option value="ar">🇸🇦 AR (RTL)</option>
+                <option value="ja">🇯🇵 JA</option>
+                <option value="ko">🇰🇷 KO</option>
+            </select>
+        </div>
 
         <!-- Main Calculator Section -->
         <div id="calculatorSection" class="app-section">
@@ -58,7 +71,12 @@
                 <div id="historyOverlay" class="history-panel hidden">
                     <div class="history-header">
                         <span data-i18n="historyTitle">Hisob-kitoblar Tarixi</span>
-                        <button id="clearHistoryBtn" class="text-btn" data-i18n="historyClear">Tozalash</button>
+                        <div class="history-actions-row">
+                            <button id="exportDataBtn" class="action-btn" title="Zahiraviy nusxalash (Export)">💾 Export</button>
+                            <button id="importDataBtn" class="action-btn" title="Nusxadan tiklash (Import)">📥 Import</button>
+                            <input type="file" id="importFileInput" accept=".json" style="display:none">
+                            <button id="clearHistoryBtn" class="text-btn" data-i18n="historyClear">Tozalash</button>
+                        </div>
                     </div>
                     <ul id="historyList" class="history-list">
                         <li class="empty-msg" data-i18n="emptyHistory">Hali hisoblashlar mavjud emas</li>
@@ -94,7 +112,7 @@
                 <button class="btn sci-btn" data-action="%">%</button>
             </div>
 
-            <!-- Standard Keypad Grid (4-Column Layout) -->
+            <!-- Standard Keypad Grid -->
             <div class="standard-keypad">
                 <button class="btn clear-btn" id="clearBtn">AC</button>
                 <button class="btn backspace-btn" id="backspaceBtn">⌫</button>
@@ -125,13 +143,11 @@
         <!-- Unit Converter Section -->
         <div id="converterSection" class="app-section hidden">
             <div class="converter-box">
-                <!-- Category Select -->
                 <div class="field-group">
                     <label class="field-label" data-i18n="categoryLabel">Kategoriya:</label>
                     <select id="categorySelect" class="custom-select"></select>
                 </div>
 
-                <!-- Input Unit Row -->
                 <div class="convert-row">
                     <input type="text" id="convertInput" class="convert-input" value="1" placeholder="0">
                     <select id="fromUnitSelect" class="custom-select unit-select"></select>
@@ -141,14 +157,12 @@
                     <button id="swapUnitsBtn" class="swap-btn" title="Almashtirish">⇅</button>
                 </div>
 
-                <!-- Output Unit Row -->
                 <div class="convert-row">
                     <input type="text" id="convertOutput" class="convert-input readonly-input" readonly value="0">
                     <select id="toUnitSelect" class="custom-select unit-select"></select>
                 </div>
             </div>
 
-            <!-- Quick Number Keypad for Converter -->
             <div class="converter-keypad">
                 <button class="btn num-btn conv-key" data-key="7">7</button>
                 <button class="btn num-btn conv-key" data-key="8">8</button>
@@ -166,6 +180,39 @@
                 <button class="btn num-btn conv-key" data-key=".">.</button>
 
                 <button class="btn num-btn zero-btn conv-key" data-key="0">0</button>
+            </div>
+        </div>
+
+        <!-- AdMob Banner Area (FIX 3: Google Test Ad Unit for Safe Closed Testing) -->
+        <div id="adMobBanner" class="admob-banner">
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:320px;height:50px"
+                 data-ad-client="ca-app-pub-3940256099942544"
+                 data-ad-slot="6300978111"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <!-- PRO / In-App Purchase Upgrade Modal -->
+        <div id="proModal" class="modal-overlay hidden">
+            <div class="modal-card">
+                <button id="closeProModalBtn" class="close-modal-btn">✕</button>
+                <div class="pro-header">
+                    <span class="pro-crown">👑</span>
+                    <h2 data-i18n="proTitle">Calculator PRO</h2>
+                    <p data-i18n="proSubtitle">Barcha imkoniyatlarni cheklovlarsiz oching!</p>
+                </div>
+                <ul class="pro-benefits">
+                    <li>✨ <strong data-i18n="proAdFree">100% Reklamasiz</strong> — Ishingizni hech narsa chalg'itmaydi</li>
+                    <li>🎨 <strong data-i18n="proThemes">Eksklyuziv Pro Mavzular</strong> — Gold Luxe & Cyberpunk Neon</li>
+                    <li>💾 <strong data-i18n="proBackup">Zahiraviy Nusxalash</strong> — Ma'lumotlarni eksport va import qilish</li>
+                    <li>🚀 <strong data-i18n="proPriority">Cheksiz Convertor</strong> — Barqaror va tezkor hisoblash</li>
+                </ul>
+                <div class="pro-actions">
+                    <button id="buyProBtn" class="buy-pro-btn" data-i18n="proBuyBtn">⭐ PRO versiyani faollashtirish ($0.99)</button>
+                    <button id="restorePurchaseBtn" class="secondary-btn" data-i18n="proRestore">Xaridni tiklash</button>
+                </div>
             </div>
         </div>
     </div>
