@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.calculator_7n3e.twa",
+        "sha256_cert_fingerprints": ["E4:34:4F:E3:5E:15:9F:D5:B1:EB:B6:12:AF:B1:8F:14:8A:81:38:3C:50:A9:2A:58:16:AE:B8:44:47:8D:2D:A9"]
+      }
+    }]

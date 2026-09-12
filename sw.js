@@ -1,4 +1,4 @@
-const CACHE_NAME = 'calculator-app-v5-offline';
+const CACHE_NAME = 'calculator-app-v6-currency';
 const ASSETS = [
   './',
   './index.html',

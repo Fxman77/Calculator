@@ -61,7 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 area: "📐 Maydon",
                 volume: "🧪 Hajm",
                 speed: "🚀 Tezlik",
-                data: "💾 Ma'lumot"
+                data: "💾 Ma'lumot",
+                currency: "💱 Valyuta (Pul)"
             },
             errZeroDiv: "Nolga bo'lish mumkin emas",
             errNegSqrt: "Manfiy son ildizi mavjud emas",
@@ -97,7 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 area: "📐 Area",
                 volume: "🧪 Volume",
                 speed: "🚀 Speed",
-                data: "💾 Data Storage"
+                data: "💾 Data Storage",
+                currency: "💱 Currency (Money)"
             },
             errZeroDiv: "Cannot divide by zero",
             errNegSqrt: "Negative square root undefined",
@@ -133,7 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 area: "📐 Área",
                 volume: "🧪 Volumen",
                 speed: "🚀 Velocidad",
-                data: "💾 Almacenamiento"
+                data: "💾 Almacenamiento",
+                currency: "💱 Moneda / Divisa"
             },
             errZeroDiv: "No se puede dividir por cero",
             errNegSqrt: "Raíz cuadrada negativa no definida",
@@ -169,7 +172,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 area: "📐 Área",
                 volume: "🧪 Volume",
                 speed: "🚀 Velocidade",
-                data: "💾 Armazenamento"
+                data: "💾 Armazenamento",
+                currency: "💱 Moeda / Câmbio"
             },
             errZeroDiv: "Não é possível dividir por zero",
             errNegSqrt: "Raiz quadrada negativa não definida",
@@ -205,7 +209,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 area: "📐 Площадь",
                 volume: "🧪 Объем",
                 speed: "🚀 Скорость",
-                data: "💾 Данные"
+                data: "💾 Данные",
+                currency: "💱 Валюта"
             },
             errZeroDiv: "Деление на ноль невозможно",
             errNegSqrt: "Корень из отриц. числа не существует",
@@ -241,7 +246,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 area: "📐 क्षेत्रफल",
                 volume: "🧪 आयतन",
                 speed: "🚀 गति",
-                data: "💾 डेटा संग्रहण"
+                data: "💾 डेटा संग्रहण",
+                currency: "💱 मुद्रा (करंसी)"
             },
             errZeroDiv: "शून्य से विभाजन संभव नहीं",
             errNegSqrt: "ऋणात्मक वर्गमूल अपरिभाषित",
@@ -277,7 +283,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 area: "📐 Fläche",
                 volume: "🧪 Volumen",
                 speed: "🚀 Geschwindigkeit",
-                data: "💾 Datenspeicher"
+                data: "💾 Datenspeicher",
+                currency: "💱 Währung (Geld)"
             },
             errZeroDiv: "Teilen durch Null nicht möglich",
             errNegSqrt: "Negative Quadratwurzel undefiniert",
@@ -313,7 +320,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 area: "📐 Surface",
                 volume: "🧪 Volume",
                 speed: "🚀 Vitesse",
-                data: "💾 Données"
+                data: "💾 Données",
+                currency: "💱 Devise / Monnaie"
             },
             errZeroDiv: "Division par zéro impossible",
             errNegSqrt: "Racine carrée négative non définie",
@@ -349,7 +357,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 area: "📐 Luas",
                 volume: "🧪 Volume",
                 speed: "🚀 Kecepatan",
-                data: "💾 Penyimpanan Data"
+                data: "💾 Penyimpanan Data",
+                currency: "💱 Mata Uang"
             },
             errZeroDiv: "Tidak dapat dibagi dengan nol",
             errNegSqrt: "Akar kuadrat negatif tidak terdefinisi",
@@ -385,7 +394,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 area: "📐 المساحة",
                 volume: "🧪 الحجم",
                 speed: "🚀 السرعة",
-                data: "💾 تخزين البيانات"
+                data: "💾 تخزين البيانات",
+                currency: "💱 العملات (المال)"
             },
             errZeroDiv: "لا يمكن القسمة على صفر",
             errNegSqrt: "الجذر التربيعي للسالب غير معرف",
@@ -421,7 +431,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 area: "📐 面積",
                 volume: "🧪 体積",
                 speed: "🚀 速度",
-                data: "💾 データ容量"
+                data: "💾 データ容量",
+                currency: "💱 通貨・為替"
             },
             errZeroDiv: "0で割ることはできません",
             errNegSqrt: "負の平方根は未定義です",
@@ -457,7 +468,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 area: "📐 넓이",
                 volume: "🧪 부피",
                 speed: "🚀 속도",
-                data: "💾 데이터 용량"
+                data: "💾 데이터 용량",
+                currency: "💱 통화 (환율)"
             },
             errZeroDiv: "0으로 나눌 수 없습니다",
             errNegSqrt: "음수 제곱근은 정의되지 않음",
@@ -673,6 +685,122 @@ document.addEventListener('DOMContentLoaded', () => {
     const convertOutput = document.getElementById('convertOutput');
     const swapUnitsBtn = document.getElementById('swapUnitsBtn');
 
+
+    // LIVE CURRENCY EXCHANGE RATES (CBU / ER API + Offline Cache)
+    let liveCurrencyRates = {
+        'UZS': 1,
+        'USD': 12850,
+        'EUR': 13950,
+        'RUB': 142,
+        'GBP': 16300,
+        'CNY': 1780,
+        'KZT': 26.5,
+        'TRY': 375,
+        'AED': 3495,
+        'SAR': 3420,
+        'KRW': 9.6
+    };
+    let currencyLastUpdatedText = "";
+    let isCurrencyOnline = false;
+
+    // Load cached rates from localStorage if available
+    try {
+        const cachedRates = localStorage.getItem('calc_currency_rates');
+        const cachedTime = localStorage.getItem('calc_currency_time');
+        if (cachedRates) {
+            liveCurrencyRates = Object.assign(liveCurrencyRates, JSON.parse(cachedRates));
+            if (cachedTime) currencyLastUpdatedText = cachedTime;
+        }
+    } catch(e) {}
+
+    async function fetchLiveCurrencyRates() {
+        const currencyStatusDot = document.getElementById('currencyStatusDot');
+        const currencyLastUpdated = document.getElementById('currencyLastUpdated');
+
+        if (currencyLastUpdated) {
+            currencyLastUpdated.textContent = currentLang === 'uz' ? "🔄 Kurslar yuklanmoqda..." : "🔄 Updating rates...";
+        }
+
+        try {
+            // Primary: Central Bank of Uzbekistan (CBU) JSON API
+            const resp = await fetch('https://cbu.uz/uz/arkhiv-kursov-valyut/json/', { cache: 'no-cache' });
+            if (!resp.ok) throw new Error("CBU HTTP error " + resp.status);
+            const data = await resp.json();
+
+            if (Array.isArray(data)) {
+                data.forEach(item => {
+                    const code = item.Ccy;
+                    const rate = parseFloat(item.Rate);
+                    if (code && !isNaN(rate) && rate > 0) {
+                        liveCurrencyRates[code] = rate;
+                    }
+                });
+
+                liveCurrencyRates['UZS'] = 1;
+                const today = new Date();
+                const timeStr = today.toLocaleDateString() + ' ' + today.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                currencyLastUpdatedText = timeStr;
+                isCurrencyOnline = true;
+
+                localStorage.setItem('calc_currency_rates', JSON.stringify(liveCurrencyRates));
+                localStorage.setItem('calc_currency_time', timeStr);
+
+                if (currencyStatusDot) currencyStatusDot.className = 'status-dot online';
+                if (currencyLastUpdated) {
+                    currencyLastUpdated.textContent = currentLang === 'uz' ? `🟢 Jonli kurs (MB) • ${timeStr}` : `🟢 Live Rate (CBU) • ${timeStr}`;
+                }
+                performConversion();
+                return;
+            }
+        } catch(e) {
+            console.log("CBU API fetch failed, trying secondary fallback...", e);
+        }
+
+        try {
+            // Secondary Fallback API: open.er-api.com
+            const resp = await fetch('https://open.er-api.com/v6/latest/USD', { cache: 'no-cache' });
+            if (!resp.ok) throw new Error("ER-API HTTP error " + resp.status);
+            const data = await resp.json();
+
+            if (data && data.rates && data.rates['UZS']) {
+                const uzsPerUsd = data.rates['UZS'];
+                Object.keys(data.rates).forEach(code => {
+                    const usdPerCode = data.rates[code];
+                    if (usdPerCode > 0) {
+                        liveCurrencyRates[code] = uzsPerUsd / usdPerCode;
+                    }
+                });
+
+                liveCurrencyRates['UZS'] = 1;
+                const today = new Date();
+                const timeStr = today.toLocaleDateString() + ' ' + today.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                currencyLastUpdatedText = timeStr;
+                isCurrencyOnline = true;
+
+                localStorage.setItem('calc_currency_rates', JSON.stringify(liveCurrencyRates));
+                localStorage.setItem('calc_currency_time', timeStr);
+
+                if (currencyStatusDot) currencyStatusDot.className = 'status-dot online';
+                if (currencyLastUpdated) {
+                    currencyLastUpdated.textContent = currentLang === 'uz' ? `🟢 Jonli kurs • ${timeStr}` : `🟢 Live Rate • ${timeStr}`;
+                }
+                performConversion();
+                return;
+            }
+        } catch(err) {
+            console.log("Secondary currency API failed, using cached/offline rates.", err);
+        }
+
+        // Offline / Failure fallback
+        isCurrencyOnline = false;
+        if (currencyStatusDot) currencyStatusDot.className = 'status-dot offline';
+        if (currencyLastUpdated) {
+            const label = currentLang === 'uz' ? "🌐 Saqlangan (Oflayn) kurs" : "🌐 Cached (Offline) rate";
+            currencyLastUpdated.textContent = `${label} ${currencyLastUpdatedText ? '(' + currencyLastUpdatedText + ')' : ''}`;
+        }
+        performConversion();
+    }
+
     // CONVERSION DATABASE (FIX 4: Corrected 'm3' name to 'Kub metr (m³)')
     const CONVERSION_DATA = {
         length: {
@@ -737,6 +865,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 'GB': { name: 'Gigabayt (GB)', factor: 1073741824 },
                 'TB': { name: 'Terabayt (TB)', factor: 1099511627776 }
             }
+        },
+        currency: {
+            specialCurrency: true,
+            units: {
+                'UZS': { name: "O'zbek so'mi (UZS)", symbol: "so'm" },
+                'USD': { name: "AQSh dollari (USD)", symbol: "$" },
+                'EUR': { name: "Yevro (EUR)", symbol: "€" },
+                'RUB': { name: "Rossiya rubli (RUB)", symbol: "₽" },
+                'GBP': { name: "Angliya funti (GBP)", symbol: "£" },
+                'CNY': { name: "Xitoy yuani (CNY)", symbol: "¥" },
+                'KZT': { name: "Qozog'iston tengesi (KZT)", symbol: "₸" },
+                'TRY': { name: "Turkiya lirasi (TRY)", symbol: "₺" },
+                'AED': { name: "BAA dirhami (AED)", symbol: "AED" },
+                'SAR': { name: "Saudiya riyoli (SAR)", symbol: "SAR" },
+                'KRW': { name: "Janubiy Koreya voni (KRW)", symbol: "₩" }
+            }
         }
     };
 
@@ -752,6 +896,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <option value="volume">${tCats.volume}</option>
             <option value="speed">${tCats.speed}</option>
             <option value="data">${tCats.data}</option>
+            <option value="currency">${tCats.currency}</option>
         `;
         categorySelect.value = selectedVal;
         initConverterCategory();
@@ -777,6 +922,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function initConverterCategory() {
         const catKey = categorySelect.value;
         const catData = CONVERSION_DATA[catKey];
+        const currencyRateInfo = document.getElementById('currencyRateInfo');
+
+        if (catKey === 'currency') {
+            if (currencyRateInfo) currencyRateInfo.classList.remove('hidden');
+            fetchLiveCurrencyRates();
+        } else {
+            if (currencyRateInfo) currencyRateInfo.classList.add('hidden');
+        }
 
         fromUnitSelect.innerHTML = '';
         toUnitSelect.innerHTML = '';
@@ -823,6 +976,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (toKey === 'C') result = celsius;
             else if (toKey === 'F') result = (celsius * 9 / 5) + 32;
             else if (toKey === 'K') result = celsius + 273.15;
+        } else if (catData.specialCurrency && catKey === 'currency') {
+            const fromRate = liveCurrencyRates[fromKey] || 1;
+            const toRate = liveCurrencyRates[toKey] || 1;
+            const baseValueInUZS = val * fromRate;
+            result = baseValueInUZS / toRate;
         } else {
             const fromFactor = catData.units[fromKey].factor;
             const toFactor = catData.units[toKey].factor;
@@ -850,6 +1008,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     convertInput.addEventListener('input', performConversion);
+
+    const refreshRatesBtn = document.getElementById('refreshRatesBtn');
+    if (refreshRatesBtn) {
+        refreshRatesBtn.addEventListener('click', () => {
+            triggerHaptic();
+            fetchLiveCurrencyRates();
+        });
+    }
 
     swapUnitsBtn.addEventListener('click', () => {
         triggerHaptic();
