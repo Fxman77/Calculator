@@ -3,6 +3,8 @@
   "name": "Kalkulyator va Birliklar",
   "short_name": "Calculator",
   "description": "Zamonaviy, tezkor kalkulyator va 12 tildagi birliklar almashtirgichi. Dark va Light rejimlari.",
+  "version": "1.1.0",
+  "versionCode": 2,
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

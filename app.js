@@ -5,6 +5,22 @@ document.addEventListener('DOMContentLoaded', () => {
     let isNewInput = true;
     let history = [];
     let memoryValue = 0;
+    let isUserPro = localStorage.getItem('isUserPro') === 'true';
+
+    // ADMOB DUAL BUILD CONFIGURATION (AUTOMATIC ENVIRONMENT DETECTION + TOGGLE)
+    // Closed testing uses official Google Test Ad ID to prevent account suspension.
+    // Pass ?prod=true in URL or set IS_TEST_BUILD = false for live production release.
+    const IS_TEST_BUILD = true;
+    const forceProduction = window.location.search.includes('prod=true');
+    const useTestAds = IS_TEST_BUILD && !forceProduction;
+
+    const AD_CONFIG = useTestAds ? {
+        client: "ca-app-pub-3940256099942544",
+        slot: "6300978111"
+    } : {
+        client: "ca-app-pub-2910631304019617",
+        slot: "1729963728"
+    };
 
     // HAPTIC FEEDBACK
     function triggerHaptic() {
@@ -26,6 +42,18 @@ document.addEventListener('DOMContentLoaded', () => {
             scientificMode: "Ilmiy Rejim",
             standardMode: "Oddiy Rejim",
             categoryLabel: "Kategoriya:",
+            themeLight: "☀️ Ochiq",
+            themeDark: "🌙 To'q",
+            themeGold: "👑 Oltin",
+            themeCyber: "🔮 Kiber",
+            proTitle: "Calculator PRO",
+            proSubtitle: "Barcha imkoniyatlarni cheklovlarsiz oching!",
+            proAdFree: "100% Reklamasiz",
+            proThemes: "Eksklyuziv Pro Mavzular",
+            proBackup: "Zahiraviy Nusxalash",
+            proPriority: "Cheksiz Convertor",
+            proBuyBtn: "⭐ PRO versiyani faollashtirish ($0.99)",
+            proRestore: "Xaridni tiklash",
             categories: {
                 length: "📏 Uzunlik",
                 weight: "⚖️ Massa / Og'irlik",
@@ -38,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errZeroDiv: "Nolga bo'lish mumkin emas",
             errNegSqrt: "Manfiy son ildizi mavjud emas",
             errNegLn: "Manfiy son logarifmi mavjud emas",
+            errUndefined: "Aniqlanmagan",
             errMath: "Matematik xato"
         },
         en: {
@@ -49,6 +78,18 @@ document.addEventListener('DOMContentLoaded', () => {
             scientificMode: "Scientific",
             standardMode: "Standard",
             categoryLabel: "Category:",
+            themeLight: "☀️ Light",
+            themeDark: "🌙 Dark",
+            themeGold: "👑 Gold",
+            themeCyber: "🔮 Cyber",
+            proTitle: "Calculator PRO",
+            proSubtitle: "Unlock all features without limits!",
+            proAdFree: "100% Ad-Free Experience",
+            proThemes: "Exclusive Pro Themes",
+            proBackup: "Data Backup & Restore",
+            proPriority: "Unlimited Conversion",
+            proBuyBtn: "⭐ Activate PRO Version ($0.99)",
+            proRestore: "Restore Purchase",
             categories: {
                 length: "📏 Length",
                 weight: "⚖️ Mass / Weight",
@@ -61,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errZeroDiv: "Cannot divide by zero",
             errNegSqrt: "Negative square root undefined",
             errNegLn: "Negative logarithm undefined",
+            errUndefined: "Undefined",
             errMath: "Math Error"
         },
         es: {
@@ -72,6 +114,18 @@ document.addEventListener('DOMContentLoaded', () => {
             scientificMode: "Científica",
             standardMode: "Estándar",
             categoryLabel: "Categoría:",
+            themeLight: "☀️ Claro",
+            themeDark: "🌙 Oscuro",
+            themeGold: "👑 Oro",
+            themeCyber: "🔮 Ciber",
+            proTitle: "Calculadora PRO",
+            proSubtitle: "¡Desbloquea todo sin límites!",
+            proAdFree: "100% Sin Anuncios",
+            proThemes: "Temas Exclusivos Pro",
+            proBackup: "Copia de Seguridad",
+            proPriority: "Conversor Ilimitado",
+            proBuyBtn: "⭐ Activar Versión PRO ($0.99)",
+            proRestore: "Restaurar compra",
             categories: {
                 length: "📏 Longitud",
                 weight: "⚖️ Masa / Peso",
@@ -84,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errZeroDiv: "No se puede dividir por cero",
             errNegSqrt: "Raíz cuadrada negativa no definida",
             errNegLn: "Logaritmo negativo no definido",
+            errUndefined: "Indefinido",
             errMath: "Error matemático"
         },
         pt: {
@@ -95,6 +150,18 @@ document.addEventListener('DOMContentLoaded', () => {
             scientificMode: "Científica",
             standardMode: "Padrão",
             categoryLabel: "Categoria:",
+            themeLight: "☀️ Claro",
+            themeDark: "🌙 Escuro",
+            themeGold: "👑 Ouro",
+            themeCyber: "🔮 Cyber",
+            proTitle: "Calculadora PRO",
+            proSubtitle: "Desbloqueie tudo sem limites!",
+            proAdFree: "100% Sem Anúncios",
+            proThemes: "Temas Pro Exclusivos",
+            proBackup: "Backup de Dados",
+            proPriority: "Conversão Ilimitada",
+            proBuyBtn: "⭐ Ativar Versão PRO ($0.99)",
+            proRestore: "Restaurar compra",
             categories: {
                 length: "📏 Comprimento",
                 weight: "⚖️ Massa / Peso",
@@ -107,6 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errZeroDiv: "Não é possível dividir por zero",
             errNegSqrt: "Raiz quadrada negativa não definida",
             errNegLn: "Logaritmo negativo não definido",
+            errUndefined: "Indefinido",
             errMath: "Erro matemático"
         },
         ru: {
@@ -118,6 +186,18 @@ document.addEventListener('DOMContentLoaded', () => {
             scientificMode: "Инженерный",
             standardMode: "Обычный",
             categoryLabel: "Категория:",
+            themeLight: "☀️ Светлая",
+            themeDark: "🌙 Тёмная",
+            themeGold: "👑 Золотая",
+            themeCyber: "🔮 Кибер",
+            proTitle: "Калькулятор PRO",
+            proSubtitle: "Разблокируйте все функции без ограничений!",
+            proAdFree: "100% Без Рекламы",
+            proThemes: "Эксклюзивные Pro Темы",
+            proBackup: "Резервное Копирование",
+            proPriority: "Безлимитный Конвертер",
+            proBuyBtn: "⭐ Активировать PRO ($0.99)",
+            proRestore: "Восстановить покупку",
             categories: {
                 length: "📏 Длина",
                 weight: "⚖️ Масса / Вес",
@@ -130,6 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errZeroDiv: "Деление на ноль невозможно",
             errNegSqrt: "Корень из отриц. числа не существует",
             errNegLn: "Логарифм отриц. числа не существует",
+            errUndefined: "Не определено",
             errMath: "Ошибка вычислений"
         },
         hi: {
@@ -141,6 +222,18 @@ document.addEventListener('DOMContentLoaded', () => {
             scientificMode: "वैज्ञानिक",
             standardMode: "मानक",
             categoryLabel: "श्रेणी:",
+            themeLight: "☀️ हल्का",
+            themeDark: "🌙 गहरा",
+            themeGold: "👑 गोल्ड",
+            themeCyber: "🔮 साइबर",
+            proTitle: "कैलक्यूलेटर PRO",
+            proSubtitle: "बिना किसी सीमा के सभी सुविधाओं को अनलॉक करें!",
+            proAdFree: "100% विज्ञापन-मुक्त अनुभव",
+            proThemes: "विशेष प्रो थीम",
+            proBackup: "डेटा बैकअप और पुनर्वापसी",
+            proPriority: "असीमित रूपांतरण",
+            proBuyBtn: "⭐ PRO संस्करण सक्षम करें ($0.99)",
+            proRestore: "खरीद पुनर्स्थापित करें",
             categories: {
                 length: "📏 लंबाई",
                 weight: "⚖️ द्रव्यमान / वजन",
@@ -153,6 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errZeroDiv: "शून्य से विभाजन संभव नहीं",
             errNegSqrt: "ऋणात्मक वर्गमूल अपरिभाषित",
             errNegLn: "ऋणात्मक लघुगणक अपरिभाषित",
+            errUndefined: "अपरिभाषित",
             errMath: "गणितीय त्रुटि"
         },
         de: {
@@ -164,6 +258,18 @@ document.addEventListener('DOMContentLoaded', () => {
             scientificMode: "Wissenschaftlich",
             standardMode: "Standard",
             categoryLabel: "Kategorie:",
+            themeLight: "☀️ Hell",
+            themeDark: "🌙 Dunkel",
+            themeGold: "👑 Gold",
+            themeCyber: "🔮 Cyber",
+            proTitle: "Rechner PRO",
+            proSubtitle: "Schalten Sie alle Funktionen ohne Einschränkungen frei!",
+            proAdFree: "100% Werbefrei",
+            proThemes: "Exklusive Pro-Themes",
+            proBackup: "Datensicherung & Wiederherstellung",
+            proPriority: "Unbegrenzter Konverter",
+            proBuyBtn: "⭐ PRO-Version aktivieren ($0.99)",
+            proRestore: "Kauf wiederherstellen",
             categories: {
                 length: "📏 Länge",
                 weight: "⚖️ Masse / Gewicht",
@@ -176,6 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errZeroDiv: "Teilen durch Null nicht möglich",
             errNegSqrt: "Negative Quadratwurzel undefiniert",
             errNegLn: "Negativer Logarithmus undefiniert",
+            errUndefined: "Undefiniert",
             errMath: "Mathematischer Fehler"
         },
         fr: {
@@ -187,6 +294,18 @@ document.addEventListener('DOMContentLoaded', () => {
             scientificMode: "Scientifique",
             standardMode: "Standard",
             categoryLabel: "Catégorie:",
+            themeLight: "☀️ Clair",
+            themeDark: "🌙 Sombre",
+            themeGold: "👑 Or",
+            themeCyber: "🔮 Cyber",
+            proTitle: "Calculatrice PRO",
+            proSubtitle: "Débloquez toutes les fonctionnalités sans limites!",
+            proAdFree: "100% Sans Publicité",
+            proThemes: "Thèmes Pro Exclusifs",
+            proBackup: "Sauvegarde des Données",
+            proPriority: "Convertisseur Illimité",
+            proBuyBtn: "⭐ Activer la version PRO ($0.99)",
+            proRestore: "Restaurer l'achat",
             categories: {
                 length: "📏 Longueur",
                 weight: "⚖️ Masse / Poids",
@@ -199,6 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errZeroDiv: "Division par zéro impossible",
             errNegSqrt: "Racine carrée négative non définie",
             errNegLn: "Logarithme négatif non défini",
+            errUndefined: "Indéfini",
             errMath: "Erreur mathématique"
         },
         id: {
@@ -210,6 +330,18 @@ document.addEventListener('DOMContentLoaded', () => {
             scientificMode: "Sains",
             standardMode: "Standar",
             categoryLabel: "Kategori:",
+            themeLight: "☀️ Terang",
+            themeDark: "🌙 Gelap",
+            themeGold: "👑 Emas",
+            themeCyber: "🔮 Siber",
+            proTitle: "Kalkulator PRO",
+            proSubtitle: "Buka semua fitur tanpa batas!",
+            proAdFree: "100% Bebas Iklan",
+            proThemes: "Tema Pro Eksklusif",
+            proBackup: "Cadangkan Data",
+            proPriority: "Konverter Tanpa Batas",
+            proBuyBtn: "⭐ Aktifkan Versi PRO ($0.99)",
+            proRestore: "Pulihkan Pembelian",
             categories: {
                 length: "📏 Panjang",
                 weight: "⚖️ Massa / Berat",
@@ -222,6 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errZeroDiv: "Tidak dapat dibagi dengan nol",
             errNegSqrt: "Akar kuadrat negatif tidak terdefinisi",
             errNegLn: "Logaritma negatif tidak terdefinisi",
+            errUndefined: "Tidak terdefinisi",
             errMath: "Kesalahan Matematika"
         },
         ar: {
@@ -233,6 +366,18 @@ document.addEventListener('DOMContentLoaded', () => {
             scientificMode: "علمي",
             standardMode: "قياسي",
             categoryLabel: "الفئة:",
+            themeLight: "☀️ فاتح",
+            themeDark: "🌙 داكن",
+            themeGold: "👑 ذهبي",
+            themeCyber: "🔮 سايبر",
+            proTitle: "الحاسبة PRO",
+            proSubtitle: "افتح جميع الميزات بدون حدود!",
+            proAdFree: "100% خالي من الإعلانات",
+            proThemes: "ثيمات احترافية حصرية",
+            proBackup: "نسخ احتياطي للبيانات",
+            proPriority: "محول غير محدود",
+            proBuyBtn: "⭐ تفعيل الإصدار الاحترافي ($0.99)",
+            proRestore: "استعادة الشراء",
             categories: {
                 length: "📏 الطول",
                 weight: "⚖️ الكتلة / الوزن",
@@ -245,6 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errZeroDiv: "لا يمكن القسمة على صفر",
             errNegSqrt: "الجذر التربيعي للسالب غير معرف",
             errNegLn: "اللوغاريتم السالب غير معرف",
+            errUndefined: "غير معرف",
             errMath: "خطأ رياضي"
         },
         ja: {
@@ -256,6 +402,18 @@ document.addEventListener('DOMContentLoaded', () => {
             scientificMode: "科学電卓",
             standardMode: "標準",
             categoryLabel: "カテゴリ:",
+            themeLight: "☀️ ライト",
+            themeDark: "🌙 ダーク",
+            themeGold: "👑 ゴールド",
+            themeCyber: "🔮 サイバー",
+            proTitle: "電卓 PRO",
+            proSubtitle: "無制限ですべての機能を解放！",
+            proAdFree: "100% 広告なし",
+            proThemes: "限定Proテーマ",
+            proBackup: "データバックアップ＆復元",
+            proPriority: "無制限コンバーター",
+            proBuyBtn: "⭐ PRO版を有効化 ($0.99)",
+            proRestore: "購入を復元",
             categories: {
                 length: "📏 長さ",
                 weight: "⚖️ 質量 / 重量",
@@ -268,6 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errZeroDiv: "0で割ることはできません",
             errNegSqrt: "負の平方根は未定義です",
             errNegLn: "負の対数は未定義です",
+            errUndefined: "未定義",
             errMath: "計算エラー"
         },
         ko: {
@@ -279,6 +438,18 @@ document.addEventListener('DOMContentLoaded', () => {
             scientificMode: "공학용",
             standardMode: "일반",
             categoryLabel: "카테고리:",
+            themeLight: "☀️ 라이트",
+            themeDark: "🌙 다크",
+            themeGold: "👑 골드",
+            themeCyber: "🔮 사이버",
+            proTitle: "계산기 PRO",
+            proSubtitle: "제한 없이 모든 기능을 잠금 해제하세요!",
+            proAdFree: "100% 광고 없음",
+            proThemes: "전용 프로 테마",
+            proBackup: "데이터 백업 및 복원",
+            proPriority: "무제한 변환기",
+            proBuyBtn: "⭐ PRO 버전 활성화 ($0.99)",
+            proRestore: "구매 복원",
             categories: {
                 length: "📏 길이",
                 weight: "⚖️ 질량 / 무게",
@@ -291,12 +462,99 @@ document.addEventListener('DOMContentLoaded', () => {
             errZeroDiv: "0으로 나눌 수 없습니다",
             errNegSqrt: "음수 제곱근은 정의되지 않음",
             errNegLn: "음수 로그는 정의되지 않음",
+            errUndefined: "정의되지 않음",
             errMath: "수학 오류"
         }
     };
 
     const langSelect = document.getElementById('langSelect');
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const proBadgeBtn = document.getElementById('proBadgeBtn');
+    const adMobBanner = document.getElementById('adMobBanner');
+    const proModal = document.getElementById('proModal');
+    const closeProModalBtn = document.getElementById('closeProModalBtn');
+    const buyProBtn = document.getElementById('buyProBtn');
+    const restorePurchaseBtn = document.getElementById('restorePurchaseBtn');
+    const exportDataBtn = document.getElementById('exportDataBtn');
+    const importDataBtn = document.getElementById('importDataBtn');
+    const importFileInput = document.getElementById('importFileInput');
+
     let currentLang = localStorage.getItem('calcLang') || 'uz';
+    let currentTheme = localStorage.getItem('calcTheme') || 'dark';
+
+    // PRO & MONETIZATION MANAGEMENT
+    function updateProStatus(proState) {
+        isUserPro = proState;
+        localStorage.setItem('isUserPro', proState);
+
+        if (isUserPro) {
+            proBadgeBtn.textContent = '👑 PRO Active';
+            proBadgeBtn.classList.add('active-pro');
+            adMobBanner.classList.add('hidden-pro');
+        } else {
+            proBadgeBtn.textContent = '⭐ PRO';
+            proBadgeBtn.classList.remove('active-pro');
+            adMobBanner.classList.remove('hidden-pro');
+        }
+    }
+
+    updateProStatus(isUserPro);
+
+    proBadgeBtn.addEventListener('click', () => {
+        triggerHaptic();
+        proModal.classList.remove('hidden');
+    });
+
+    closeProModalBtn.addEventListener('click', () => {
+        triggerHaptic();
+        proModal.classList.add('hidden');
+    });
+
+    buyProBtn.addEventListener('click', () => {
+        triggerHaptic();
+        updateProStatus(true);
+        proModal.classList.add('hidden');
+        alert(currentLang === 'uz' ? "🎉 Calculator PRO versiyasi muvaffaqiyatli faollashtirildi!" : "🎉 Calculator PRO successfully activated!");
+    });
+
+    restorePurchaseBtn.addEventListener('click', () => {
+        triggerHaptic();
+        updateProStatus(true);
+        proModal.classList.add('hidden');
+        alert(currentLang === 'uz' ? "✅ Xaridingiz muvaffaqiyatli qayta tiklandi!" : "✅ Purchase restored successfully!");
+    });
+
+    // THEME SWITCHER
+    function updateThemeButtonText() {
+        const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+        if (document.body.classList.contains('dark-theme')) themeToggleBtn.textContent = t.themeLight;
+        else if (document.body.classList.contains('light-theme')) themeToggleBtn.textContent = isUserPro ? t.themeGold : t.themeDark;
+        else if (document.body.classList.contains('gold-theme')) themeToggleBtn.textContent = t.themeCyber;
+        else themeToggleBtn.textContent = t.themeDark;
+    }
+
+    function setTheme(theme) {
+        document.body.classList.remove('dark-theme', 'light-theme', 'gold-theme', 'cyberpunk-theme');
+        document.body.classList.add(`${theme}-theme`);
+        localStorage.setItem('calcTheme', theme);
+        updateThemeButtonText();
+    }
+
+    setTheme(currentTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+        triggerHaptic();
+        if (document.body.classList.contains('dark-theme')) {
+            setTheme('light');
+        } else if (document.body.classList.contains('light-theme')) {
+            if (isUserPro) setTheme('gold');
+            else setTheme('dark');
+        } else if (document.body.classList.contains('gold-theme')) {
+            setTheme('cyberpunk');
+        } else {
+            setTheme('dark');
+        }
+    });
 
     function setLanguage(lang) {
         currentLang = lang;
@@ -304,7 +562,6 @@ document.addEventListener('DOMContentLoaded', () => {
         langSelect.value = lang;
         const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
-        // Set RTL for Arabic
         if (lang === 'ar') {
             document.documentElement.setAttribute('dir', 'rtl');
         } else {
@@ -321,6 +578,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        updateThemeButtonText();
         populateCategoryOptions();
         renderHistory();
     }
@@ -330,30 +588,59 @@ document.addEventListener('DOMContentLoaded', () => {
         setLanguage(e.target.value);
     });
 
-    // THEME SWITCHER
-    const themeToggleBtn = document.getElementById('themeToggleBtn');
-    const currentTheme = localStorage.getItem('calcTheme') || 'dark';
-
-    function setTheme(theme) {
-        if (theme === 'light') {
-            document.body.classList.remove('dark-theme');
-            document.body.classList.add('light-theme');
-            themeToggleBtn.textContent = '🌙 Dark';
-            localStorage.setItem('calcTheme', 'light');
-        } else {
-            document.body.classList.remove('light-theme');
-            document.body.classList.add('dark-theme');
-            themeToggleBtn.textContent = '☀️ Light';
-            localStorage.setItem('calcTheme', 'dark');
-        }
-    }
-
-    setTheme(currentTheme);
-
-    themeToggleBtn.addEventListener('click', () => {
+    // DATA BACKUP (EXPORT & IMPORT JSON)
+    exportDataBtn.addEventListener('click', () => {
         triggerHaptic();
-        const isDark = document.body.classList.contains('dark-theme');
-        setTheme(isDark ? 'light' : 'dark');
+        const backupData = {
+            version: "2.1.0",
+            timestamp: new Date().toISOString(),
+            history: history,
+            memoryValue: memoryValue,
+            currentTheme: currentTheme,
+            currentLang: currentLang,
+            isUserPro: isUserPro
+        };
+
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupData, null, 2));
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", `calculator_backup_${new Date().toISOString().slice(0,10)}.json`);
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+    });
+
+    importDataBtn.addEventListener('click', () => {
+        triggerHaptic();
+        importFileInput.click();
+    });
+
+    importFileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const imported = JSON.parse(event.target.result);
+                if (imported.history && Array.isArray(imported.history)) {
+                    // FIX 2: Sanitize history strings on import to prevent stored XSS
+                    history = imported.history.map(item => String(item).replace(/[<>]/g, ''));
+                    if (imported.memoryValue) memoryValue = imported.memoryValue;
+                    if (imported.currentLang) setLanguage(imported.currentLang);
+                    if (imported.currentTheme) setTheme(imported.currentTheme);
+                    if (typeof imported.isUserPro === 'boolean') updateProStatus(imported.isUserPro);
+
+                    renderHistory();
+                    alert(currentLang === 'uz' ? "✅ Ma'lumotlar muvaffaqiyatli tiklandi!" : "✅ Data restored successfully!");
+                } else {
+                    alert(currentLang === 'uz' ? "❌ Noto'g'ri fayl formati!" : "❌ Invalid backup file format!");
+                }
+            } catch (err) {
+                alert(currentLang === 'uz' ? "❌ Faylni o'qishda xatolik!" : "❌ Error reading backup file!");
+            }
+        };
+        reader.readAsText(file);
     });
 
     // Elements
@@ -386,7 +673,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const convertOutput = document.getElementById('convertOutput');
     const swapUnitsBtn = document.getElementById('swapUnitsBtn');
 
-    // Conversion Database
+    // CONVERSION DATABASE (FIX 4: Corrected 'm3' name to 'Kub metr (m³)')
     const CONVERSION_DATA = {
         length: {
             units: {
@@ -430,9 +717,9 @@ document.addEventListener('DOMContentLoaded', () => {
             units: {
                 'L': { name: 'Litr (L)', factor: 1 },
                 'mL': { name: 'Millilitr (mL)', factor: 0.001 },
-                'm3': { name: 'Kvadrat metr (m³)', factor: 1000 },
+                'm3': { name: 'Kub metr (m³)', factor: 1000 }, // FIX 4: Corrected from 'Kvadrat metr'
                 'gal': { name: 'Gallon (US)', factor: 3.78541178 },
-                'cup': { name: 'Stakan (cup)', factor: 0.24 }
+                'cup': { name: 'Stakan / US Cup (236.59 mL)', factor: 0.236588 }
             }
         },
         speed: {
@@ -470,7 +757,6 @@ document.addEventListener('DOMContentLoaded', () => {
         initConverterCategory();
     }
 
-    // TAB NAVIGATION
     calcTabBtn.addEventListener('click', () => {
         triggerHaptic();
         calcTabBtn.classList.add('active');
@@ -488,7 +774,6 @@ document.addEventListener('DOMContentLoaded', () => {
         initConverterCategory();
     });
 
-    // UNIT CONVERTER LOGIC
     function initConverterCategory() {
         const catKey = categorySelect.value;
         const catData = CONVERSION_DATA[catKey];
@@ -545,10 +830,7 @@ document.addEventListener('DOMContentLoaded', () => {
             result = baseValue / toFactor;
         }
 
-        let resStr = "";
-        if (result % 1 === 0) resStr = result.toString();
-        else resStr = result.toFixed(6).replace(/\.?0+$/, "");
-
+        let resStr = formatResult(result);
         convertOutput.value = formatNumber(resStr);
     }
 
@@ -577,7 +859,6 @@ document.addEventListener('DOMContentLoaded', () => {
         performConversion();
     });
 
-    // Converter Keypad Buttons
     document.querySelectorAll('.conv-key').forEach(btn => {
         btn.addEventListener('click', () => {
             triggerHaptic();
@@ -596,7 +877,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // CALCULATOR CORE FUNCTIONS
     function formatNumber(numStr) {
         if (!numStr || typeof numStr !== 'string') return numStr;
         if (numStr === "Xato" || isErrorState(numStr)) {
@@ -638,15 +918,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // FIX 6: ACCURATE FLOATING POINT AND SMALL NUMBER FORMATTING
     function formatResult(value) {
         const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
         if (isNaN(value)) return t.errMath;
         if (!isFinite(value)) return t.errZeroDiv;
-        if (Math.abs(value) < 1e-10 && value !== 0) return "0";
-        if (value % 1 === 0) return value.toString();
+        if (value === 0) return "0";
         
-        let formatted = value.toFixed(6).replace(/\.?0+$/, "");
-        return formatted;
+        let absVal = Math.abs(value);
+        if (absVal < 1e-12 && absVal > 0) return "0";
+
+        // Clean float precision issues (e.g. 0.1 + 0.2 = 0.30000000000000004 -> 0.3)
+        let num = Number(Math.round(value + 'e12') + 'e-12');
+        let str = num.toString();
+        
+        if (str.includes('e')) {
+            return str;
+        }
+
+        return str;
     }
 
     function evaluateExpression(exprStr) {
@@ -672,7 +962,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function isErrorState(val) {
         if (!val || typeof val !== 'string') return false;
         const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
-        return val === t.errZeroDiv || val === t.errNegSqrt || val === t.errNegLn || val === t.errMath;
+        return val === t.errZeroDiv || val === t.errNegSqrt || val === t.errNegLn || val === t.errUndefined || val === t.errMath;
     }
 
     function onNumberClick(number) {
@@ -705,6 +995,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDisplay();
     }
 
+    // FIX 7: OPERATOR PRECEDENCE UX (DO NOT JUMP MAIN DISPLAY ON OPERATOR PRESS)
     function onOperationClick(operation) {
         triggerHaptic();
         const currentValue = parseFormattedNumber(displayValue);
@@ -716,15 +1007,11 @@ document.addEventListener('DOMContentLoaded', () => {
             fullExpression += `${formatNumber(displayValue)} ${operation} `;
         }
 
-        let currentEval = evaluateExpression(fullExpression.slice(0, -2));
-        if (typeof currentEval === 'number') {
-            displayValue = formatResult(currentEval);
-        }
-
         isNewInput = true;
         updateDisplay();
     }
 
+    // FIX 1 & FIX 5: PERCENTAGE CONTEXT & TAN(90°) ASYMPTOTE DETECTION
     function onInstantScientificClick(operation) {
         triggerHaptic();
         const currentValue = parseFormattedNumber(displayValue);
@@ -747,13 +1034,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 result = Math.pow(currentValue, 2); 
                 break;
             case 'sin': 
-                result = Math.sin(currentValue * Math.PI / 180); 
+                let sinDeg = (currentValue % 360 + 360) % 360;
+                if (sinDeg === 0 || sinDeg === 180) result = 0;
+                else if (sinDeg === 90) result = 1;
+                else if (sinDeg === 270) result = -1;
+                else result = Math.sin(currentValue * Math.PI / 180); 
                 break;
             case 'cos': 
-                result = Math.cos(currentValue * Math.PI / 180); 
+                let cosDeg = (currentValue % 360 + 360) % 360;
+                if (cosDeg === 90 || cosDeg === 270) result = 0;
+                else if (cosDeg === 0) result = 1;
+                else if (cosDeg === 180) result = -1;
+                else result = Math.cos(currentValue * Math.PI / 180); 
                 break;
             case 'tan': 
-                result = Math.tan(currentValue * Math.PI / 180); 
+                // FIX 5: Detect tan(90°), tan(270°), tan(90 + k*180) asymptote
+                let tanDeg = (currentValue % 360 + 360) % 360;
+                if (Math.abs(tanDeg - 90) < 1e-6 || Math.abs(tanDeg - 270) < 1e-6) {
+                    result = t.errUndefined;
+                    isErrorStr = true;
+                } else if (tanDeg === 0 || tanDeg === 180) {
+                    result = 0;
+                } else {
+                    result = Math.tan(currentValue * Math.PI / 180);
+                }
                 break;
             case 'ln': 
                 if (currentValue <= 0) {
@@ -764,6 +1068,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 break;
             case '%': 
+                // FIX 1: Percentage calculation logic (100 + 10% = 110)
+                if (fullExpression.trim().length > 0) {
+                    const match = fullExpression.trim().match(/^([\d\s.]+)\s*([+\-×÷^])$/);
+                    if (match) {
+                        const baseVal = parseFormattedNumber(match[1]);
+                        const op = match[2];
+                        if (!isNaN(baseVal) && (op === '+' || op === '-')) {
+                            const percentVal = (baseVal * currentValue) / 100;
+                            displayValue = formatResult(percentVal);
+                            isNewInput = true;
+                            updateDisplay();
+                            return;
+                        }
+                    }
+                }
                 result = currentValue / 100; 
                 break;
         }
@@ -867,18 +1186,26 @@ document.addEventListener('DOMContentLoaded', () => {
         renderHistory();
     }
 
+    // FIX 2: SAFE DOM NODES CREATION PREVENTING XSS INJECTION
     function renderHistory() {
         const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+        historyList.innerHTML = '';
+
         if (history.length === 0) {
-            historyList.innerHTML = `<li class="empty-msg">${t.emptyHistory}</li>`;
+            const li = document.createElement('li');
+            li.className = 'empty-msg';
+            li.textContent = t.emptyHistory;
+            historyList.appendChild(li);
             return;
         }
-        historyList.innerHTML = history.map(item => `<li class="history-item">${item}</li>`).join('');
 
-        document.querySelectorAll('.history-item').forEach(item => {
-            item.addEventListener('click', () => {
+        history.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'history-item';
+            li.textContent = item; // Safe text node escaping HTML
+            li.addEventListener('click', () => {
                 triggerHaptic();
-                const parts = item.textContent.split('=');
+                const parts = item.split('=');
                 if (parts.length > 1) {
                     displayValue = parts[parts.length - 1].trim().replace(/\s+/g, '');
                     isNewInput = true;
@@ -886,6 +1213,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     historyPanel.classList.add('hidden');
                 }
             });
+            historyList.appendChild(li);
         });
     }
 
@@ -944,6 +1272,6 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (e.key === 'Escape') onClearClick();
     });
 
-    // Initialize Language
+    // Initialize Language & Theme
     setLanguage(currentLang);
 });
