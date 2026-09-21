@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "myapp.fxman77",
+      "sha256_cert_fingerprints": [
+        "E2:1C:6D:6D:83:C0:19:C8:47:E3:58:77:B1:56:9B:0E:19:1B:E0:B3:9A:F1:61:AE:62:E5:73:46:9E:EC:FD:F1"
+      ]
+    }
+  }
+]
