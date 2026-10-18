@@ -39,6 +39,8 @@
             <div class="nav-tabs">
                 <button id="calcTabBtn" class="tab-btn active" data-i18n="calcTab">🧮 Kalkulyator</button>
                 <button id="converterTabBtn" class="tab-btn" data-i18n="converterTab">📏 Birliklar</button>
+                <button id="currencyTabBtn" class="tab-btn" data-i18n="currencyTab">💱 Valyuta</button>
+                <button id="financeTabBtn" class="tab-btn" data-i18n="financeTab">📊 Moliya</button>
             </div>
 
             <button id="proBadgeBtn" class="pro-chip" title="PRO statusini oshirish">⭐ PRO</button>
@@ -100,16 +102,27 @@
                 </div>
             </div>
 
-            <!-- Scientific Keys Row -->
+            <!-- Scientific Keys Grid (4x4 Enhanced) -->
             <div id="scientificKeypad" class="scientific-keypad hidden">
+                <button class="btn sci-btn deg-btn active-deg" id="degRadBtn" title="Burchak birligi (DEG / RAD)">DEG</button>
+                <button class="btn sci-btn paren-btn" data-paren="(">(</button>
+                <button class="btn sci-btn paren-btn" data-paren=")">)</button>
+                <button class="btn sci-btn const-btn" data-const="π">π</button>
+
                 <button class="btn sci-btn" data-action="sin">sin</button>
                 <button class="btn sci-btn" data-action="cos">cos</button>
                 <button class="btn sci-btn" data-action="tan">tan</button>
+                <button class="btn sci-btn const-btn" data-const="e">e</button>
+
                 <button class="btn sci-btn" data-action="ln">ln</button>
+                <button class="btn sci-btn" data-action="log">log</button>
                 <button class="btn sci-btn" data-action="√">√</button>
                 <button class="btn sci-btn" data-action="x²">x²</button>
+
                 <button class="btn sci-btn" data-op="^">^</button>
-                <button class="btn sci-btn" data-action="%">%</button>
+                <button class="btn sci-btn" data-action="n!">n!</button>
+                <button class="btn sci-btn" data-action="1/x">1/x</button>
+                <button class="btn sci-btn" data-action="|x|">|x|</button>
             </div>
 
             <!-- Standard Keypad Grid -->
@@ -180,6 +193,151 @@
                 <button class="btn num-btn conv-key" data-key=".">.</button>
 
                 <button class="btn num-btn zero-btn conv-key" data-key="0">0</button>
+            </div>
+        </div>
+
+        <!-- Currency Converter Section -->
+        <div id="currencySection" class="app-section hidden">
+            <div class="converter-box currency-box">
+                <div class="currency-header-row">
+                    <span class="currency-title-badge" data-i18n="currencyRateTitle">Joriy Valyuta Kurslari</span>
+                    <button id="refreshRatesBtn" class="refresh-rates-btn" title="Kurslarni yangilash">🔄 <span data-i18n="refreshBtn">Yangilash</span></button>
+                </div>
+
+                <div class="currency-status-info" id="currencyStatusInfo">
+                    <span class="pulse-indicator">●</span> <span id="rateDateText">Oflayn kurslar (USD bazasi)</span>
+                </div>
+
+                <div class="convert-row">
+                    <input type="text" id="currencyInput" class="convert-input" value="100" placeholder="0">
+                    <select id="fromCurrencySelect" class="custom-select unit-select"></select>
+                </div>
+
+                <div class="swap-icon-container">
+                    <button id="swapCurrencyBtn" class="swap-btn" title="Almashtirish">⇅</button>
+                    <span class="rate-preview" id="ratePreview">1 USD = 12 850 UZS</span>
+                </div>
+
+                <div class="convert-row">
+                    <input type="text" id="currencyOutput" class="convert-input readonly-input" readonly value="0">
+                    <select id="toCurrencySelect" class="custom-select unit-select"></select>
+                </div>
+
+                <!-- Quick selection pills -->
+                <div class="quick-currency-row">
+                    <button class="quick-cur-btn" data-amt="1">1</button>
+                    <button class="quick-cur-btn" data-amt="10">10</button>
+                    <button class="quick-cur-btn" data-amt="50">50</button>
+                    <button class="quick-cur-btn" data-amt="100">100</button>
+                    <button class="quick-cur-btn" data-amt="500">500</button>
+                    <button class="quick-cur-btn" data-amt="1000">1 000</button>
+                </div>
+            </div>
+
+            <!-- Currency Numeric Keypad -->
+            <div class="converter-keypad">
+                <button class="btn num-btn curr-key" data-key="7">7</button>
+                <button class="btn num-btn curr-key" data-key="8">8</button>
+                <button class="btn num-btn curr-key" data-key="9">9</button>
+                <button class="btn backspace-btn curr-key" data-key="DEL">⌫</button>
+
+                <button class="btn num-btn curr-key" data-key="4">4</button>
+                <button class="btn num-btn curr-key" data-key="5">5</button>
+                <button class="btn num-btn curr-key" data-key="6">6</button>
+                <button class="btn clear-btn curr-key" data-key="CLR">AC</button>
+
+                <button class="btn num-btn curr-key" data-key="1">1</button>
+                <button class="btn num-btn curr-key" data-key="2">2</button>
+                <button class="btn num-btn curr-key" data-key="3">3</button>
+                <button class="btn num-btn curr-key" data-key=".">.</button>
+
+                <button class="btn num-btn zero-btn curr-key" data-key="0">0</button>
+                <button class="btn num-btn curr-key" data-key="00">00</button>
+            </div>
+        </div>
+
+        <!-- Finance & Percentage Calculator Section -->
+        <div id="financeSection" class="app-section hidden">
+            <div class="finance-subtabs">
+                <button id="loanSubtabBtn" class="finance-subtab-btn active" data-i18n="loanTab">💳 Kredit hisoblagich</button>
+                <button id="percentSubtabBtn" class="finance-subtab-btn" data-i18n="percentTab">📈 Foiz & Chegirma</button>
+            </div>
+
+            <!-- Loan Card -->
+            <div id="loanCard" class="finance-card">
+                <div class="field-group">
+                    <label class="field-label" data-i18n="loanAmountLabel">Kredit summasi (so'm / $):</label>
+                    <input type="text" id="loanAmountInput" class="custom-input" placeholder="20 000 000" value="20 000 000">
+                </div>
+                <div class="field-row-2col">
+                    <div class="field-group">
+                        <label class="field-label" data-i18n="loanRateLabel">Yillik foiz (%):</label>
+                        <input type="number" id="loanRateInput" class="custom-input" placeholder="22" value="22" step="0.1">
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label" data-i18n="loanTermLabel">Muddati (oy):</label>
+                        <input type="number" id="loanTermInput" class="custom-input" placeholder="24" value="24">
+                    </div>
+                </div>
+
+                <button id="calculateLoanBtn" class="calc-action-btn" data-i18n="calculateBtn">⚡ Hisoblash</button>
+
+                <div class="finance-results-grid">
+                    <div class="res-item primary-res">
+                        <span class="res-label" data-i18n="monthlyPayLabel">Oylik to'lov:</span>
+                        <span id="loanMonthlyPay" class="res-val highlight">1 037 563 so'm</span>
+                    </div>
+                    <div class="res-item">
+                        <span class="res-label" data-i18n="totalInterestLabel">Jami foiz:</span>
+                        <span id="loanTotalInterest" class="res-val">4 901 514 so'm</span>
+                    </div>
+                    <div class="res-item">
+                        <span class="res-label" data-i18n="totalPaymentLabel">Jami to'lov:</span>
+                        <span id="loanTotalPayment" class="res-val">24 901 514 so'm</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Percentage Calculator Card -->
+            <div id="percentCard" class="finance-card hidden">
+                <!-- Mode 1: What is X% of Y? -->
+                <div class="percent-block">
+                    <h4 class="percent-title" data-i18n="pctMode1Title">1. Sonning foizini topish</h4>
+                    <div class="pct-inputs-row">
+                        <input type="number" id="pctValY" class="custom-input pct-input" placeholder="Son" value="500000">
+                        <span class="pct-text">ning</span>
+                        <input type="number" id="pctRateX" class="custom-input pct-input" placeholder="%" value="15">
+                        <span class="pct-text">% =</span>
+                        <span id="pctResult1" class="pct-output">75 000</span>
+                    </div>
+                </div>
+
+                <!-- Mode 2: Discount Calculator -->
+                <div class="percent-block">
+                    <h4 class="percent-title" data-i18n="pctMode2Title">2. Chegirma (Skidka) hisoblash</h4>
+                    <div class="pct-inputs-row">
+                        <input type="number" id="discPrice" class="custom-input pct-input" placeholder="Narx" value="200000">
+                        <span class="pct-text">-</span>
+                        <input type="number" id="discPercent" class="custom-input pct-input" placeholder="%" value="20">
+                        <span class="pct-text">%</span>
+                    </div>
+                    <div class="disc-results-row">
+                        <div><span class="disc-sublabel" data-i18n="discPayLabel">To'lanadi:</span> <strong id="discFinalPrice">160 000</strong></div>
+                        <div><span class="disc-sublabel" data-i18n="discSavedLabel">Tejov:</span> <strong id="discSavings" class="save-val">40 000</strong></div>
+                    </div>
+                </div>
+
+                <!-- Mode 3: Ratio -->
+                <div class="percent-block">
+                    <h4 class="percent-title" data-i18n="pctMode3Title">3. Nisbat foizini topish</h4>
+                    <div class="pct-inputs-row">
+                        <input type="number" id="ratioPart" class="custom-input pct-input" placeholder="Qism" value="25">
+                        <span class="pct-text">/</span>
+                        <input type="number" id="ratioTotal" class="custom-input pct-input" placeholder="Umumiy" value="200">
+                        <span class="pct-text">=</span>
+                        <span id="pctResult3" class="pct-output">12.5%</span>
+                    </div>
+                </div>
             </div>
         </div>
 

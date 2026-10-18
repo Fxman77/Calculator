@@ -467,6 +467,98 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const EXTRA_TRANSLATIONS = {
+        uz: {
+            currencyTab: "💱 Valyuta", financeTab: "📊 Moliya", loanTab: "💳 Kredit hisoblagich", percentTab: "📈 Foiz & Chegirma",
+            loanAmountLabel: "Kredit summasi (so'm / $):", loanRateLabel: "Yillik foiz (%):", loanTermLabel: "Muddati (oy):",
+            calculateBtn: "⚡ Hisoblash", monthlyPayLabel: "Oylik to'lov:", totalInterestLabel: "Jami foiz:", totalPaymentLabel: "Jami to'lov:",
+            pctMode1Title: "1. Sonning foizini topish", pctMode2Title: "2. Chegirma (Skidka) hisoblash", pctMode3Title: "3. Nisbat foizini topish",
+            currencyRateTitle: "Joriy Valyuta Kurslari", refreshBtn: "Yangilash", discPayLabel: "To'lanadi:", discSavedLabel: "Tejov:"
+        },
+        en: {
+            currencyTab: "💱 Currency", financeTab: "📊 Finance", loanTab: "💳 Loan Calculator", percentTab: "📈 Percent & Discount",
+            loanAmountLabel: "Loan Amount ($ / so'm):", loanRateLabel: "Annual Rate (%):", loanTermLabel: "Term (months):",
+            calculateBtn: "⚡ Calculate", monthlyPayLabel: "Monthly payment:", totalInterestLabel: "Total interest:", totalPaymentLabel: "Total payment:",
+            pctMode1Title: "1. Calculate percentage of number", pctMode2Title: "2. Discount & Savings calculator", pctMode3Title: "3. Percentage ratio",
+            currencyRateTitle: "Exchange Rates", refreshBtn: "Refresh", discPayLabel: "Final price:", discSavedLabel: "You save:"
+        },
+        es: {
+            currencyTab: "💱 Divisas", financeTab: "📊 Finanzas", loanTab: "💳 Préstamos", percentTab: "📈 Porcentaje & Descuento",
+            loanAmountLabel: "Monto del préstamo:", loanRateLabel: "Tasa anual (%):", loanTermLabel: "Plazo (meses):",
+            calculateBtn: "⚡ Calcular", monthlyPayLabel: "Pago mensual:", totalInterestLabel: "Interés total:", totalPaymentLabel: "Pago total:",
+            pctMode1Title: "1. Calcular porcentaje", pctMode2Title: "2. Calculadora de descuento", pctMode3Title: "3. Proporción porcentual",
+            currencyRateTitle: "Tipos de Cambio", refreshBtn: "Actualizar", discPayLabel: "Precio final:", discSavedLabel: "Ahorro:"
+        },
+        pt: {
+            currencyTab: "💱 Moedas", financeTab: "📊 Finanças", loanTab: "💳 Empréstimos", percentTab: "📈 Porcentagem & Desconto",
+            loanAmountLabel: "Valor do empréstimo:", loanRateLabel: "Taxa anual (%):", loanTermLabel: "Prazo (meses):",
+            calculateBtn: "⚡ Calcular", monthlyPayLabel: "Pagamento mensal:", totalInterestLabel: "Juros totais:", totalPaymentLabel: "Total a pagar:",
+            pctMode1Title: "1. Calcular porcentagem", pctMode2Title: "2. Calculadora de desconto", pctMode3Title: "3. Razão percentual",
+            currencyRateTitle: "Taxas de Câmbio", refreshBtn: "Atualizar", discPayLabel: "Preço final:", discSavedLabel: "Economia:"
+        },
+        ru: {
+            currencyTab: "💱 Валюта", financeTab: "📊 Финансы", loanTab: "💳 Кредитный калькулятор", percentTab: "📈 Проценты и скидки",
+            loanAmountLabel: "Сумма кредита:", loanRateLabel: "Годовая ставка (%):", loanTermLabel: "Срок (месяцев):",
+            calculateBtn: "⚡ Рассчитать", monthlyPayLabel: "Ежемесячный платеж:", totalInterestLabel: "Переплата (проценты):", totalPaymentLabel: "Итоговая выплата:",
+            pctMode1Title: "1. Найти процент от числа", pctMode2Title: "2. Расчет скидки", pctMode3Title: "3. Процентное соотношение",
+            currencyRateTitle: "Курсы Валют", refreshBtn: "Обновить", discPayLabel: "К оплате:", discSavedLabel: "Экономия:"
+        },
+        hi: {
+            currencyTab: "💱 मुद्रा", financeTab: "📊 वित्त", loanTab: "💳 ऋण कैलकुलेटर", percentTab: "📈 प्रतिशत और छूट",
+            loanAmountLabel: "ऋण राशि:", loanRateLabel: "वार्षिक दर (%):", loanTermLabel: "अवधि (माह):",
+            calculateBtn: "⚡ गणना करें", monthlyPayLabel: "मासिक किस्त:", totalInterestLabel: "कुल ब्याज:", totalPaymentLabel: "कुल भुगतान:",
+            pctMode1Title: "1. संख्या का प्रतिशत निकालें", pctMode2Title: "2. छूट कैलकुलेटर", pctMode3Title: "3. प्रतिशत अनुपात",
+            currencyRateTitle: "मुद्रा विनिमय दर", refreshBtn: "ताज़ा करें", discPayLabel: "अंतिम मूल्य:", discSavedLabel: "बचत:"
+        },
+        de: {
+            currencyTab: "💱 Währung", financeTab: "📊 Finanzen", loanTab: "💳 Kreditrechner", percentTab: "📈 Prozent & Rabatt",
+            loanAmountLabel: "Kreditbetrag:", loanRateLabel: "Jahreszins (%):", loanTermLabel: "Laufzeit (Monate):",
+            calculateBtn: "⚡ Berechnen", monthlyPayLabel: "Monatliche Rate:", totalInterestLabel: "Gesamtzinsen:", totalPaymentLabel: "Gesamtzahlung:",
+            pctMode1Title: "1. Prozentwert berechnen", pctMode2Title: "2. Rabattrechner", pctMode3Title: "3. Prozentsatz ermitteln",
+            currencyRateTitle: "Wechselkurse", refreshBtn: "Aktualisieren", discPayLabel: "Endpreis:", discSavedLabel: "Ersparnis:"
+        },
+        fr: {
+            currencyTab: "💱 Devises", financeTab: "📊 Finance", loanTab: "💳 Simulateur de crédit", percentTab: "📈 Pourcentage & Remise",
+            loanAmountLabel: "Montant du prêt:", loanRateLabel: "Taux annuel (%):", loanTermLabel: "Durée (mois):",
+            calculateBtn: "⚡ Calculer", monthlyPayLabel: "Mensualité:", totalInterestLabel: "Intérêts totaux:", totalPaymentLabel: "Total à rembourser:",
+            pctMode1Title: "1. Calculer le pourcentage", pctMode2Title: "2. Calculateur de remise", pctMode3Title: "3. Ratio en pourcentage",
+            currencyRateTitle: "Taux de Change", refreshBtn: "Actualiser", discPayLabel: "Prix final:", discSavedLabel: "Économie:"
+        },
+        id: {
+            currencyTab: "💱 Valuta", financeTab: "📊 Keuangan", loanTab: "💳 Kalkulator Pinjaman", percentTab: "📈 Persen & Diskon",
+            loanAmountLabel: "Jumlah Pinjaman:", loanRateLabel: "Bunga Tahunan (%):", loanTermLabel: "Jangka Waktu (bulan):",
+            calculateBtn: "⚡ Hitung", monthlyPayLabel: "Cicilan Bulanan:", totalInterestLabel: "Total Bunga:", totalPaymentLabel: "Total Pembayaran:",
+            pctMode1Title: "1. Hitung persen dari angka", pctMode2Title: "2. Kalkulator diskon", pctMode3Title: "3. Rasio persentase",
+            currencyRateTitle: "Kurs Mata Uang", refreshBtn: "Perbarui", discPayLabel: "Bayar:", discSavedLabel: "Hemat:"
+        },
+        ar: {
+            currencyTab: "💱 العملات", financeTab: "📊 المالية", loanTab: "💳 حاسبة القروض", percentTab: "📈 النسبة والخصم",
+            loanAmountLabel: "مبلغ القرض:", loanRateLabel: "الفائدة السنوية (%):", loanTermLabel: "المدة (أشهر):",
+            calculateBtn: "⚡ احسب", monthlyPayLabel: "القسط الشهري:", totalInterestLabel: "إجمالي الفائدة:", totalPaymentLabel: "إجمالي المبلغ:",
+            pctMode1Title: "1. حساب النسبة المئوية", pctMode2Title: "2. حاسبة الخصم", pctMode3Title: "3. نسبة الجزء من الكل",
+            currencyRateTitle: "أسعار العملات", refreshBtn: "تحديث", discPayLabel: "السعر النهائي:", discSavedLabel: "التوفير:"
+        },
+        ja: {
+            currencyTab: "💱 為替", financeTab: "📊 財務", loanTab: "💳 ローン計算機", percentTab: "📈 パーセント・割引",
+            loanAmountLabel: "借入金額:", loanRateLabel: "年利 (%):", loanTermLabel: "期間 (月):",
+            calculateBtn: "⚡ 計算する", monthlyPayLabel: "月々の返済額:", totalInterestLabel: "利息総額:", totalPaymentLabel: "総返済額:",
+            pctMode1Title: "1. 割合を計算", pctMode2Title: "2. 割引・お得額計算", pctMode3Title: "3. 割合の比率",
+            currencyRateTitle: "為替レート", refreshBtn: "更新", discPayLabel: "支払額:", discSavedLabel: "お得額:"
+        },
+        ko: {
+            currencyTab: "💱 환율", financeTab: "📊 금융", loanTab: "💳 대출 계산기", percentTab: "📈 퍼센트 및 할인",
+            loanAmountLabel: "대출 금액:", loanRateLabel: "연이율 (%):", loanTermLabel: "기간 (개월):",
+            calculateBtn: "⚡ 계산하기", monthlyPayLabel: "월 납입금:", totalInterestLabel: "총 이자:", totalPaymentLabel: "총 상환금액:",
+            pctMode1Title: "1. 숫자의 퍼센트 구하기", pctMode2Title: "2. 할인율 계산", pctMode3Title: "3. 비율 퍼센트 구하기",
+            currencyRateTitle: "실시간 환율", refreshBtn: "새로고침", discPayLabel: "최종 가격:", discSavedLabel: "절약 금액:"
+        }
+    };
+    Object.keys(EXTRA_TRANSLATIONS).forEach(lang => {
+        if (TRANSLATIONS[lang]) {
+            Object.assign(TRANSLATIONS[lang], EXTRA_TRANSLATIONS[lang]);
+        }
+    });
+
     const langSelect = document.getElementById('langSelect');
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     const proBadgeBtn = document.getElementById('proBadgeBtn');
@@ -656,8 +748,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Section & Tab Elements
     const calcTabBtn = document.getElementById('calcTabBtn');
     const converterTabBtn = document.getElementById('converterTabBtn');
+    const currencyTabBtn = document.getElementById('currencyTabBtn');
+    const financeTabBtn = document.getElementById('financeTabBtn');
     const calculatorSection = document.getElementById('calculatorSection');
     const converterSection = document.getElementById('converterSection');
+    const currencySection = document.getElementById('currencySection');
+    const financeSection = document.getElementById('financeSection');
 
     // Memory Buttons
     const memClearBtn = document.getElementById('memClear');
@@ -672,6 +768,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const convertInput = document.getElementById('convertInput');
     const convertOutput = document.getElementById('convertOutput');
     const swapUnitsBtn = document.getElementById('swapUnitsBtn');
+
+    // Currency Elements
+    const currencyInput = document.getElementById('currencyInput');
+    const currencyOutput = document.getElementById('currencyOutput');
+    const fromCurrencySelect = document.getElementById('fromCurrencySelect');
+    const toCurrencySelect = document.getElementById('toCurrencySelect');
+    const swapCurrencyBtn = document.getElementById('swapCurrencyBtn');
+    const refreshRatesBtn = document.getElementById('refreshRatesBtn');
+    const ratePreview = document.getElementById('ratePreview');
+    const rateDateText = document.getElementById('rateDateText');
+
+    // Finance Elements
+    const loanSubtabBtn = document.getElementById('loanSubtabBtn');
+    const percentSubtabBtn = document.getElementById('percentSubtabBtn');
+    const loanCard = document.getElementById('loanCard');
+    const percentCard = document.getElementById('percentCard');
+    const loanAmountInput = document.getElementById('loanAmountInput');
+    const loanRateInput = document.getElementById('loanRateInput');
+    const loanTermInput = document.getElementById('loanTermInput');
+    const calculateLoanBtn = document.getElementById('calculateLoanBtn');
+    const loanMonthlyPay = document.getElementById('loanMonthlyPay');
+    const loanTotalInterest = document.getElementById('loanTotalInterest');
+    const loanTotalPayment = document.getElementById('loanTotalPayment');
+
+    // Percent Elements
+    const pctValY = document.getElementById('pctValY');
+    const pctRateX = document.getElementById('pctRateX');
+    const pctResult1 = document.getElementById('pctResult1');
+    const discPrice = document.getElementById('discPrice');
+    const discPercent = document.getElementById('discPercent');
+    const discFinalPrice = document.getElementById('discFinalPrice');
+    const discSavings = document.getElementById('discSavings');
+    const ratioPart = document.getElementById('ratioPart');
+    const ratioTotal = document.getElementById('ratioTotal');
+    const pctResult3 = document.getElementById('pctResult3');
+
+    // Scientific Elements & State
+    const degRadBtn = document.getElementById('degRadBtn');
+    let isRadMode = false;
 
     // CONVERSION DATABASE (FIX 4: Corrected 'm3' name to 'Kub metr (m³)')
     const CONVERSION_DATA = {
@@ -757,21 +892,287 @@ document.addEventListener('DOMContentLoaded', () => {
         initConverterCategory();
     }
 
-    calcTabBtn.addEventListener('click', () => {
+    function switchTab(tab) {
         triggerHaptic();
-        calcTabBtn.classList.add('active');
-        converterTabBtn.classList.remove('active');
-        calculatorSection.classList.remove('hidden');
-        converterSection.classList.add('hidden');
+        [calcTabBtn, converterTabBtn, currencyTabBtn, financeTabBtn].forEach(b => {
+            if (b) b.classList.remove('active');
+        });
+        [calculatorSection, converterSection, currencySection, financeSection].forEach(s => {
+            if (s) s.classList.add('hidden');
+        });
+
+        if (tab === 'calc') {
+            calcTabBtn.classList.add('active');
+            calculatorSection.classList.remove('hidden');
+        } else if (tab === 'converter') {
+            converterTabBtn.classList.add('active');
+            converterSection.classList.remove('hidden');
+            initConverterCategory();
+        } else if (tab === 'currency') {
+            currencyTabBtn.classList.add('active');
+            currencySection.classList.remove('hidden');
+            initCurrencyDropdowns();
+        } else if (tab === 'finance') {
+            financeTabBtn.classList.add('active');
+            financeSection.classList.remove('hidden');
+            calculateLoan();
+            calculatePercents();
+        }
+    }
+
+    calcTabBtn.addEventListener('click', () => switchTab('calc'));
+    converterTabBtn.addEventListener('click', () => switchTab('converter'));
+    currencyTabBtn.addEventListener('click', () => switchTab('currency'));
+    financeTabBtn.addEventListener('click', () => switchTab('finance'));
+
+    // CURRENCY CONVERTER SYSTEM (LIVE API + OFFLINE CACHE)
+    const DEFAULT_CURRENCY_RATES = {
+        USD: 1,
+        UZS: 12850,
+        EUR: 0.92,
+        RUB: 96.5,
+        GBP: 0.77,
+        KZT: 488,
+        TRY: 34.2,
+        CNY: 7.12,
+        AED: 3.67,
+        SAR: 3.75,
+        JPY: 152.5,
+        KRW: 1380,
+        CHF: 0.86,
+        CAD: 1.38,
+        AUD: 1.51,
+        KGS: 86.2,
+        TJS: 10.65
+    };
+
+    const CURRENCY_LIST = [
+        { code: 'USD', name: 'AQSH Dollari', flag: '🇺🇸' },
+        { code: 'UZS', name: "O'zbek so'mi", flag: '🇺🇿' },
+        { code: 'EUR', name: 'Yevro', flag: '🇪🇺' },
+        { code: 'RUB', name: 'Rossiya rubli', flag: '🇷🇺' },
+        { code: 'GBP', name: 'Angliya funti', flag: '🇬🇧' },
+        { code: 'KZT', name: 'Qozog\'iston tengesi', flag: '🇰🇿' },
+        { code: 'TRY', name: 'Turkiya lirasi', flag: '🇹🇷' },
+        { code: 'CNY', name: 'Xitoy yuani', flag: '🇨🇳' },
+        { code: 'AED', name: 'BAA dirhami', flag: '🇦🇪' },
+        { code: 'SAR', name: 'Saudiya riyoli', flag: '🇸🇦' },
+        { code: 'JPY', name: 'Yaponiya iyenasi', flag: '🇯🇵' },
+        { code: 'KRW', name: 'Janubiy Koreya voni', flag: '🇰🇷' },
+        { code: 'CHF', name: 'Shveysariya franki', flag: '🇨🇭' },
+        { code: 'CAD', name: 'Kanada dollari', flag: '🇨🇦' },
+        { code: 'AUD', name: 'Avstraliya dollari', flag: '🇦🇺' },
+        { code: 'KGS', name: 'Qirg\'iziston somi', flag: '🇰🇬' },
+        { code: 'TJS', name: 'Tojikiston somoniysi', flag: '🇹🇯' }
+    ];
+
+    let currencyRates = { ...DEFAULT_CURRENCY_RATES };
+    const savedRates = localStorage.getItem('cachedCurrencyRates');
+    if (savedRates) {
+        try {
+            currencyRates = Object.assign(currencyRates, JSON.parse(savedRates));
+        } catch (e) {}
+    }
+
+    let isCurrencyInitialized = false;
+    function initCurrencyDropdowns() {
+        if (!isCurrencyInitialized) {
+            fromCurrencySelect.innerHTML = '';
+            toCurrencySelect.innerHTML = '';
+
+            CURRENCY_LIST.forEach(item => {
+                fromCurrencySelect.innerHTML += `<option value="${item.code}">${item.flag} ${item.code} - ${item.name}</option>`;
+                toCurrencySelect.innerHTML += `<option value="${item.code}">${item.flag} ${item.code} - ${item.name}</option>`;
+            });
+
+            fromCurrencySelect.value = 'USD';
+            toCurrencySelect.value = 'UZS';
+            isCurrencyInitialized = true;
+        }
+        performCurrencyConversion();
+    }
+
+    function performCurrencyConversion() {
+        const val = parseFloat(currencyInput.value.replace(/\s+/g, '')) || 0;
+        const fromCode = fromCurrencySelect.value;
+        const toCode = toCurrencySelect.value;
+
+        const fromRate = currencyRates[fromCode] || 1;
+        const toRate = currencyRates[toCode] || 1;
+
+        const inUSD = val / fromRate;
+        const result = inUSD * toRate;
+
+        currencyOutput.value = formatNumber(formatResult(result));
+
+        const unitRate = (1 / fromRate) * toRate;
+        ratePreview.textContent = `1 ${fromCode} = ${formatNumber(formatResult(unitRate))} ${toCode}`;
+    }
+
+    async function fetchLiveCurrencyRates() {
+        rateDateText.textContent = "Yuklanmoqda...";
+        try {
+            const resp = await fetch('https://open.er-api.com/v6/latest/USD');
+            if (resp.ok) {
+                const data = await resp.json();
+                if (data && data.rates) {
+                    Object.keys(DEFAULT_CURRENCY_RATES).forEach(code => {
+                        if (data.rates[code]) {
+                            currencyRates[code] = data.rates[code];
+                        }
+                    });
+                    localStorage.setItem('cachedCurrencyRates', JSON.stringify(currencyRates));
+                    rateDateText.textContent = `Jonli kurslar (${new Date().toLocaleDateString()})`;
+                    performCurrencyConversion();
+                    return;
+                }
+            }
+        } catch (e) {}
+        rateDateText.textContent = "Oflayn kurslar (USD bazasi)";
+    }
+
+    fromCurrencySelect.addEventListener('change', () => {
+        triggerHaptic();
+        performCurrencyConversion();
     });
 
-    converterTabBtn.addEventListener('click', () => {
+    toCurrencySelect.addEventListener('change', () => {
         triggerHaptic();
-        converterTabBtn.classList.add('active');
-        calcTabBtn.classList.remove('active');
-        converterSection.classList.remove('hidden');
-        calculatorSection.classList.add('hidden');
-        initConverterCategory();
+        performCurrencyConversion();
+    });
+
+    currencyInput.addEventListener('input', performCurrencyConversion);
+
+    swapCurrencyBtn.addEventListener('click', () => {
+        triggerHaptic();
+        const tmp = fromCurrencySelect.value;
+        fromCurrencySelect.value = toCurrencySelect.value;
+        toCurrencySelect.value = tmp;
+        performCurrencyConversion();
+    });
+
+    refreshRatesBtn.addEventListener('click', () => {
+        triggerHaptic();
+        fetchLiveCurrencyRates();
+    });
+
+    document.querySelectorAll('.quick-cur-btn[data-amt]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            triggerHaptic();
+            currencyInput.value = btn.dataset.amt;
+            performCurrencyConversion();
+        });
+    });
+
+    document.querySelectorAll('.curr-key').forEach(btn => {
+        btn.addEventListener('click', () => {
+            triggerHaptic();
+            const key = btn.dataset.key;
+            if (key === 'CLR') {
+                currencyInput.value = '0';
+            } else if (key === 'DEL') {
+                currencyInput.value = currencyInput.value.length > 1 ? currencyInput.value.slice(0, -1) : '0';
+            } else if (key === '.') {
+                if (!currencyInput.value.includes('.')) currencyInput.value += '.';
+            } else if (key === '00') {
+                if (currencyInput.value !== '0') currencyInput.value += '00';
+            } else {
+                if (currencyInput.value === '0') currencyInput.value = key;
+                else currencyInput.value += key;
+            }
+            performCurrencyConversion();
+        });
+    });
+
+    // FINANCE & PERCENTAGE CALCULATOR SYSTEM
+    loanSubtabBtn.addEventListener('click', () => {
+        triggerHaptic();
+        loanSubtabBtn.classList.add('active');
+        percentSubtabBtn.classList.remove('active');
+        loanCard.classList.remove('hidden');
+        percentCard.classList.add('hidden');
+        calculateLoan();
+    });
+
+    percentSubtabBtn.addEventListener('click', () => {
+        triggerHaptic();
+        percentSubtabBtn.classList.add('active');
+        loanSubtabBtn.classList.remove('active');
+        percentCard.classList.remove('hidden');
+        loanCard.classList.add('hidden');
+        calculatePercents();
+    });
+
+    function calculateLoan() {
+        const rawAmount = loanAmountInput.value.replace(/\s+/g, '');
+        const amount = parseFloat(rawAmount) || 0;
+        const annualRate = parseFloat(loanRateInput.value) || 0;
+        const months = parseInt(loanTermInput.value) || 1;
+
+        if (amount <= 0 || months <= 0) {
+            loanMonthlyPay.textContent = '0 so\'m';
+            loanTotalInterest.textContent = '0 so\'m';
+            loanTotalPayment.textContent = '0 so\'m';
+            return;
+        }
+
+        let monthlyPay = 0;
+        let totalPayment = 0;
+        let totalInterest = 0;
+
+        if (annualRate <= 0) {
+            monthlyPay = amount / months;
+            totalPayment = amount;
+            totalInterest = 0;
+        } else {
+            const monthlyRate = annualRate / 12 / 100;
+            monthlyPay = amount * (monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+            totalPayment = monthlyPay * months;
+            totalInterest = totalPayment - amount;
+        }
+
+        loanMonthlyPay.textContent = `${formatNumber(formatResult(monthlyPay))} so'm`;
+        loanTotalInterest.textContent = `${formatNumber(formatResult(totalInterest))} so'm`;
+        loanTotalPayment.textContent = `${formatNumber(formatResult(totalPayment))} so'm`;
+    }
+
+    calculateLoanBtn.addEventListener('click', () => {
+        triggerHaptic();
+        calculateLoan();
+    });
+
+    [loanAmountInput, loanRateInput, loanTermInput].forEach(inp => {
+        inp.addEventListener('input', calculateLoan);
+    });
+
+    function calculatePercents() {
+        // Mode 1: What is X% of Y?
+        const y = parseFloat(pctValY.value) || 0;
+        const x = parseFloat(pctRateX.value) || 0;
+        const res1 = (y * x) / 100;
+        pctResult1.textContent = formatNumber(formatResult(res1));
+
+        // Mode 2: Discount
+        const price = parseFloat(discPrice.value) || 0;
+        const discount = parseFloat(discPercent.value) || 0;
+        const savings = (price * discount) / 100;
+        const finalPrice = Math.max(0, price - savings);
+        discFinalPrice.textContent = formatNumber(formatResult(finalPrice));
+        discSavings.textContent = formatNumber(formatResult(savings));
+
+        // Mode 3: Ratio
+        const part = parseFloat(ratioPart.value) || 0;
+        const total = parseFloat(ratioTotal.value) || 0;
+        if (total === 0) {
+            pctResult3.textContent = '0%';
+        } else {
+            const ratio = (part / total) * 100;
+            pctResult3.textContent = `${formatResult(ratio)}%`;
+        }
+    }
+
+    [pctValY, pctRateX, discPrice, discPercent, ratioPart, ratioTotal].forEach(inp => {
+        inp.addEventListener('input', calculatePercents);
     });
 
     function initConverterCategory() {
@@ -946,8 +1347,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 .replace(/×/g, '*')
                 .replace(/÷/g, '/')
                 .replace(/\^/g, '**')
+                .replace(/π/g, `(${Math.PI})`)
+                .replace(/e/g, `(${Math.E})`)
                 .replace(/\s+/g, '');
             
+            // Auto balance unclosed parentheses
+            const openCount = (cleanExpr.match(/\(/g) || []).length;
+            const closeCount = (cleanExpr.match(/\)/g) || []).length;
+            if (openCount > closeCount) {
+                cleanExpr += ')'.repeat(openCount - closeCount);
+            }
+
             if (!/^[0-9+\-*/.()]+$/.test(cleanExpr.replace(/\*\*/g, ''))) {
                 return t.errMath;
             }
@@ -1011,7 +1421,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDisplay();
     }
 
-    // FIX 1 & FIX 5: PERCENTAGE CONTEXT & TAN(90°) ASYMPTOTE DETECTION
+    // ENHANCED SCIENTIFIC CALCULATOR ENGINE
     function onInstantScientificClick(operation) {
         triggerHaptic();
         const currentValue = parseFormattedNumber(displayValue);
@@ -1034,29 +1444,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 result = Math.pow(currentValue, 2); 
                 break;
             case 'sin': 
-                let sinDeg = (currentValue % 360 + 360) % 360;
-                if (sinDeg === 0 || sinDeg === 180) result = 0;
-                else if (sinDeg === 90) result = 1;
-                else if (sinDeg === 270) result = -1;
-                else result = Math.sin(currentValue * Math.PI / 180); 
+                if (isRadMode) {
+                    result = Math.sin(currentValue);
+                } else {
+                    let sinDeg = (currentValue % 360 + 360) % 360;
+                    if (sinDeg === 0 || sinDeg === 180) result = 0;
+                    else if (sinDeg === 90) result = 1;
+                    else if (sinDeg === 270) result = -1;
+                    else result = Math.sin(currentValue * Math.PI / 180); 
+                }
                 break;
             case 'cos': 
-                let cosDeg = (currentValue % 360 + 360) % 360;
-                if (cosDeg === 90 || cosDeg === 270) result = 0;
-                else if (cosDeg === 0) result = 1;
-                else if (cosDeg === 180) result = -1;
-                else result = Math.cos(currentValue * Math.PI / 180); 
+                if (isRadMode) {
+                    result = Math.cos(currentValue);
+                } else {
+                    let cosDeg = (currentValue % 360 + 360) % 360;
+                    if (cosDeg === 90 || cosDeg === 270) result = 0;
+                    else if (cosDeg === 0) result = 1;
+                    else if (cosDeg === 180) result = -1;
+                    else result = Math.cos(currentValue * Math.PI / 180); 
+                }
                 break;
             case 'tan': 
-                // FIX 5: Detect tan(90°), tan(270°), tan(90 + k*180) asymptote
-                let tanDeg = (currentValue % 360 + 360) % 360;
-                if (Math.abs(tanDeg - 90) < 1e-6 || Math.abs(tanDeg - 270) < 1e-6) {
-                    result = t.errUndefined;
-                    isErrorStr = true;
-                } else if (tanDeg === 0 || tanDeg === 180) {
-                    result = 0;
+                if (isRadMode) {
+                    result = Math.tan(currentValue);
                 } else {
-                    result = Math.tan(currentValue * Math.PI / 180);
+                    let tanDeg = (currentValue % 360 + 360) % 360;
+                    if (Math.abs(tanDeg - 90) < 1e-6 || Math.abs(tanDeg - 270) < 1e-6) {
+                        result = t.errUndefined;
+                        isErrorStr = true;
+                    } else if (tanDeg === 0 || tanDeg === 180) {
+                        result = 0;
+                    } else {
+                        result = Math.tan(currentValue * Math.PI / 180);
+                    }
                 }
                 break;
             case 'ln': 
@@ -1067,8 +1488,39 @@ document.addEventListener('DOMContentLoaded', () => {
                     result = Math.log(currentValue);
                 }
                 break;
+            case 'log': 
+                if (currentValue <= 0) {
+                    result = t.errNegLn;
+                    isErrorStr = true;
+                } else {
+                    result = Math.log10(currentValue);
+                }
+                break;
+            case 'n!': 
+                if (currentValue < 0 || !Number.isInteger(currentValue)) {
+                    result = t.errMath;
+                    isErrorStr = true;
+                } else if (currentValue > 170) {
+                    result = Infinity;
+                    isErrorStr = true;
+                } else {
+                    let f = 1;
+                    for (let i = 2; i <= currentValue; i++) f *= i;
+                    result = f;
+                }
+                break;
+            case '1/x': 
+                if (currentValue === 0) {
+                    result = t.errZeroDiv;
+                    isErrorStr = true;
+                } else {
+                    result = 1 / currentValue;
+                }
+                break;
+            case '|x|': 
+                result = Math.abs(currentValue);
+                break;
             case '%': 
-                // FIX 1: Percentage calculation logic (100 + 10% = 110)
                 if (fullExpression.trim().length > 0) {
                     const match = fullExpression.trim().match(/^([\d\s.]+)\s*([+\-×÷^])$/);
                     if (match) {
@@ -1233,6 +1685,55 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => onOperationClick(btn.dataset.op));
     });
 
+    if (degRadBtn) {
+        degRadBtn.addEventListener('click', () => {
+            triggerHaptic();
+            isRadMode = !isRadMode;
+            degRadBtn.textContent = isRadMode ? 'RAD' : 'DEG';
+            degRadBtn.classList.toggle('active-deg', !isRadMode);
+        });
+    }
+
+    document.querySelectorAll('.paren-btn[data-paren]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            triggerHaptic();
+            const paren = btn.dataset.paren;
+            if (paren === '(') {
+                if (!isNewInput && displayValue !== '0' && fullExpression.length === 0) {
+                    fullExpression = `${formatNumber(displayValue)} × ( `;
+                } else if (!isNewInput && displayValue !== '0' && /[+\-×÷^]\s*$/.test(fullExpression)) {
+                    fullExpression += `${formatNumber(displayValue)} × ( `;
+                } else {
+                    fullExpression += '( ';
+                }
+                displayValue = '0';
+                isNewInput = true;
+            } else if (paren === ')') {
+                if (!isNewInput) {
+                    fullExpression += `${formatNumber(displayValue)} ) `;
+                } else {
+                    fullExpression += ') ';
+                }
+                isNewInput = true;
+            }
+            updateDisplay();
+        });
+    });
+
+    document.querySelectorAll('.const-btn[data-const]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            triggerHaptic();
+            const c = btn.dataset.const;
+            if (c === 'π') {
+                displayValue = formatResult(Math.PI);
+            } else if (c === 'e') {
+                displayValue = formatResult(Math.E);
+            }
+            isNewInput = false;
+            updateDisplay();
+        });
+    });
+
     document.getElementById('decimalBtn').addEventListener('click', onDecimalClick);
     document.getElementById('clearBtn').addEventListener('click', onClearClick);
     document.getElementById('backspaceBtn').addEventListener('click', onBackspaceClick);
@@ -1257,7 +1758,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     window.addEventListener('keydown', (e) => {
-        if (!converterSection.classList.contains('hidden')) return;
+        if (!converterSection.classList.contains('hidden') || !currencySection.classList.contains('hidden') || !financeSection.classList.contains('hidden')) return;
 
         if (e.key >= '0' && e.key <= '9') onNumberClick(e.key);
         else if (e.key === '.') onDecimalClick();
@@ -1267,6 +1768,22 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (e.key === '/') onOperationClick('÷');
         else if (e.key === '^') onOperationClick('^');
         else if (e.key === '%') onInstantScientificClick('%');
+        else if (e.key === '(') {
+            if (!isNewInput && displayValue !== '0' && fullExpression.length === 0) {
+                fullExpression = `${formatNumber(displayValue)} × ( `;
+            } else {
+                fullExpression += '( ';
+            }
+            displayValue = '0';
+            isNewInput = true;
+            updateDisplay();
+        }
+        else if (e.key === ')') {
+            if (!isNewInput) fullExpression += `${formatNumber(displayValue)} ) `;
+            else fullExpression += ') ';
+            isNewInput = true;
+            updateDisplay();
+        }
         else if (e.key === 'Enter' || e.key === '=') onEqualsClick();
         else if (e.key === 'Backspace') onBackspaceClick();
         else if (e.key === 'Escape') onClearClick();
