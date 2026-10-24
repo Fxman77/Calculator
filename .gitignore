@@ -1,0 +1,22 @@
+node_modules/
+.DS_Store
+Thumbs.db
+
+# Keystores and secret credentials
+*.keystore
+*.jks
+*.key
+keystore.properties
+signing-key-info.txt
+*.p8
+*.p12
+
+# Built application files & web build output
+*.apk
+*.aab
+www/
+
+# Backups and temporary files
+*.bak
+*.tmp
+*.log

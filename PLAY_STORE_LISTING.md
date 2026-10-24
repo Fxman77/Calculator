@@ -43,9 +43,12 @@
 Sizning kunlik hisob-kitoblaringiz va o'lchov birliklarini tezkor almashtirish uchun yaratilgan eng zamonaviy, qulay va bepul kalkulyator ilovasi!
 
 Asosiy imkoniyatlar:
-- 🧮 Oddiy va Ilmiy kalkulyator rejimi (sin, cos, tan, log, ildiz, daraja)
+- 🧮 Kengaytirilgan Ilmiy Kalkulyator (qavslar, π, e, sin, cos, tan, ln, log, ildiz, faktorial n!, 1/x, |x|, DEG/RAD rejimlari)
+- 💱 Jonli & Oflayn Valyuta Konvertori (USD, UZS, EUR, RUB, KZT, TRY, CNY va boshqa 17 ta jahon valyutalari)
+- 💳 Kredit & Ipoteka Hisoblagichi (Annuited oylik to'lov, jami foiz va umumiy to'lov miqdori)
+- 📈 Foiz & Chegirma (Skidka) Vositalari (Sonning foizi, chegirma tejovi, foiz nisbatlari)
 - 📏 7 xil Kategoriya bo'yicha Birliklar Almashtirgichi (Uzunlik, Massa, Harorat, Maydon, Hajm, Tezlik, Ma'lumot)
-- 🌐 12 ta Top Dunyo Tillari va Arabcha (RTL) qo'llab-quvvatlash
+- 🌐 12 ta Top Dunyo Tillari va Arabcha (RTL) to'liq qo'llab-quvvatlash
 - 🌗 Variant A (Slate Dark) va Variant B (Soft Light) hamda PRO eksklyuziv mavzular (Gold Luxe & Cyberpunk)
 - 📜 Hisob-kitoblar tarixi va Ma'lumotlarni Zahiraviy nusxalash (Export / Import JSON)
 - 💎 Reklamani o'chirish va PRO statusini faollashtirish
