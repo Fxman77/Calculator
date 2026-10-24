@@ -5,8 +5,17 @@
   "description": "Zamonaviy ilmiy kalkulyator, jonli valyuta konvertori, kredit/foiz hisoblagich va 12 tildagi birliklar almashtirgichi.",
   "main": "index.html",
   "scripts": {
-    "start": "index.html"
+    "start": "index.html",
+    "build": "node build.js"
   },
   "author": "Fxman77",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@capacitor-community/admob": "^8.2.1",
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/core": "^8.5.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.3"
+  }
 }

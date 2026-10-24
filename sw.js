@@ -1,9 +1,10 @@
-const CACHE_NAME = 'calculator-app-v6-offline';
+const CACHE_NAME = 'calculator-app-v7-offline';
 const ASSETS = [
   './',
   './index.html',
   './style.css',
   './app.js',
+  './admob.js',
   './manifest.json',
   './icon-192.png',
   './icon-512.png'

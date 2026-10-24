@@ -583,10 +583,12 @@ document.addEventListener('DOMContentLoaded', () => {
             proBadgeBtn.textContent = '👑 PRO Active';
             proBadgeBtn.classList.add('active-pro');
             adMobBanner.classList.add('hidden-pro');
+            if (window.AdMobController) window.AdMobController.onProActivated();
         } else {
             proBadgeBtn.textContent = '⭐ PRO';
             proBadgeBtn.classList.remove('active-pro');
             adMobBanner.classList.remove('hidden-pro');
+            if (window.AdMobController) window.AdMobController.onProDeactivated();
         }
     }
 
@@ -918,6 +920,7 @@ document.addEventListener('DOMContentLoaded', () => {
             calculateLoan();
             calculatePercents();
         }
+        if (window.AdMobController) window.AdMobController.onTabSwitched(tab);
     }
 
     calcTabBtn.addEventListener('click', () => switchTab('calc'));
@@ -1572,6 +1575,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fullExpression = "";
         isNewInput = true;
         updateDisplay();
+        if (window.AdMobController) window.AdMobController.onCalculationCompleted();
     }
 
     function onClearClick() {
