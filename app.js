@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isNewInput = true;
     let history = [];
     let memoryValue = 0;
-    let isUserPro = localStorage.getItem('isUserPro') === 'true';
+    let isUserPro = (typeof window !== 'undefined' && window.BillingController && typeof window.BillingController.isUserPro === 'function') ? window.BillingController.isUserPro() : false;
 
     // ADMOB DUAL BUILD CONFIGURATION (AUTOMATIC ENVIRONMENT DETECTION + TOGGLE)
     // Closed testing uses official Google Test Ad ID to prevent account suspension.
@@ -54,7 +54,16 @@ document.addEventListener('DOMContentLoaded', () => {
             proPriority: "Cheksiz Convertor",
             proBuyBtn: "⭐ PRO versiyani faollashtirish ($0.99)",
             proRestore: "Xaridni tiklash",
-            categories: {
+                        proPlanMonthly: "Oylik obuna",
+            proPerMonth: "/ oy",
+            proPlanYearly: "Yillik obuna",
+            proPerYear: "/ yil",
+            proYearlyBadge: "🔥 44% Tejamkor",
+            proSubscribeBtn: "⭐ Obuna bo'lish",
+            proDisclaimer: "Obuna avtomatik yangilanadi. Istalgan vaqtda Google Play > To'lovlar va obunalar bo'limida bekor qilishingiz mumkin.",
+            proPrivacy: "Maxfiylik siyosati",
+            proTerms: "Foydalanish shartlari",
+categories: {
                 length: "📏 Uzunlik",
                 weight: "⚖️ Massa / Og'irlik",
                 temp: "🌡️ Harorat",
@@ -90,7 +99,25 @@ document.addEventListener('DOMContentLoaded', () => {
             proPriority: "Unlimited Conversion",
             proBuyBtn: "⭐ Activate PRO Version ($0.99)",
             proRestore: "Restore Purchase",
-            categories: {
+                        proPlanMonthly: "Monthly Plan",
+            proPerMonth: "/ mo",
+            proPlanYearly: "Yearly Plan",
+            proPerYear: "/ yr",
+            proYearlyBadge: "🔥 Save 44%",
+            proSubscribeBtn: "⭐ Subscribe Now",
+            proDisclaimer: "Subscription auto-renews. Cancel anytime in Google Play > Payments & subscriptions.",
+            proPrivacy: "Privacy Policy",
+            proTerms: "Terms of Use",
+            proPlanMonthly: "Plan Mensual",
+            proPerMonth: "/ mes",
+            proPlanYearly: "Plan Anual",
+            proPerYear: "/ año",
+            proYearlyBadge: "🔥 Ahorra 44%",
+            proSubscribeBtn: "⭐ Suscribirse",
+            proDisclaimer: "La suscripción se renueva automáticamente. Cancela en Google Play > Pagos y suscripciones.",
+            proPrivacy: "Política de privacidad",
+            proTerms: "Términos de uso",
+categories: {
                 length: "📏 Length",
                 weight: "⚖️ Mass / Weight",
                 temp: "🌡️ Temperature",
@@ -162,7 +189,16 @@ document.addEventListener('DOMContentLoaded', () => {
             proPriority: "Conversão Ilimitada",
             proBuyBtn: "⭐ Ativar Versão PRO ($0.99)",
             proRestore: "Restaurar compra",
-            categories: {
+                        proPlanMonthly: "Plano Mensal",
+            proPerMonth: "/ mês",
+            proPlanYearly: "Plano Anual",
+            proPerYear: "/ ano",
+            proYearlyBadge: "🔥 Economize 44%",
+            proSubscribeBtn: "⭐ Assinar Agora",
+            proDisclaimer: "A assinatura é renovada automaticamente. Cancele no Google Play > Pagamentos e assinaturas.",
+            proPrivacy: "Política de Privacidade",
+            proTerms: "Termos de Uso",
+categories: {
                 length: "📏 Comprimento",
                 weight: "⚖️ Massa / Peso",
                 temp: "🌡️ Temperatura",
@@ -198,7 +234,16 @@ document.addEventListener('DOMContentLoaded', () => {
             proPriority: "Безлимитный Конвертер",
             proBuyBtn: "⭐ Активировать PRO ($0.99)",
             proRestore: "Восстановить покупку",
-            categories: {
+                        proPlanMonthly: "Ежемесячно",
+            proPerMonth: "/ мес",
+            proPlanYearly: "Годовой план",
+            proPerYear: "/ год",
+            proYearlyBadge: "🔥 Скидка 44%",
+            proSubscribeBtn: "⭐ Подписаться",
+            proDisclaimer: "Подписка продлевается автоматически. Отмена в любое время в Google Play > Платежи и подписки.",
+            proPrivacy: "Политика конфиденциальности",
+            proTerms: "Условия использования",
+categories: {
                 length: "📏 Длина",
                 weight: "⚖️ Масса / Вес",
                 temp: "🌡️ Температура",
@@ -234,7 +279,16 @@ document.addEventListener('DOMContentLoaded', () => {
             proPriority: "असीमित रूपांतरण",
             proBuyBtn: "⭐ PRO संस्करण सक्षम करें ($0.99)",
             proRestore: "खरीद पुनर्स्थापित करें",
-            categories: {
+                        proPlanMonthly: "मासिक प्लान",
+            proPerMonth: "/ माह",
+            proPlanYearly: "वार्षिक प्लान",
+            proPerYear: "/ वर्ष",
+            proYearlyBadge: "🔥 44% बचत",
+            proSubscribeBtn: "⭐ सदस्यता लें",
+            proDisclaimer: "सदस्यता स्वतः नवीनीकृत होती है। Google Play > भुगतान और सदस्यता में कभी भी रद्द करें।",
+            proPrivacy: "गोपनीयता नीति",
+            proTerms: "उपयोग की शर्तें",
+categories: {
                 length: "📏 लंबाई",
                 weight: "⚖️ द्रव्यमान / वजन",
                 temp: "🌡️ तापमान",
@@ -270,7 +324,16 @@ document.addEventListener('DOMContentLoaded', () => {
             proPriority: "Unbegrenzter Konverter",
             proBuyBtn: "⭐ PRO-Version aktivieren ($0.99)",
             proRestore: "Kauf wiederherstellen",
-            categories: {
+                        proPlanMonthly: "Monatlich",
+            proPerMonth: "/ Monat",
+            proPlanYearly: "Jährlich",
+            proPerYear: "/ Jahr",
+            proYearlyBadge: "🔥 44% Sparen",
+            proSubscribeBtn: "⭐ Jetzt abonnieren",
+            proDisclaimer: "Das Abonnement verlängert sich automatisch. Jederzeit kündbar unter Google Play > Zahlungen und Abos.",
+            proPrivacy: "Datenschutz",
+            proTerms: "Nutzungsbedingungen",
+categories: {
                 length: "📏 Länge",
                 weight: "⚖️ Masse / Gewicht",
                 temp: "🌡️ Temperatur",
@@ -306,7 +369,16 @@ document.addEventListener('DOMContentLoaded', () => {
             proPriority: "Convertisseur Illimité",
             proBuyBtn: "⭐ Activer la version PRO ($0.99)",
             proRestore: "Restaurer l'achat",
-            categories: {
+                        proPlanMonthly: "Abonnement Mensuel",
+            proPerMonth: "/ mois",
+            proPlanYearly: "Abonnement Annuel",
+            proPerYear: "/ an",
+            proYearlyBadge: "🔥 Économisez 44%",
+            proSubscribeBtn: "⭐ S'abonner",
+            proDisclaimer: "Renouvellement automatique. Annulation possible à tout moment sur Google Play > Paiements et abonnements.",
+            proPrivacy: "Politique de confidentialité",
+            proTerms: "Conditions d'utilisation",
+categories: {
                 length: "📏 Longueur",
                 weight: "⚖️ Masse / Poids",
                 temp: "🌡️ Température",
@@ -342,7 +414,16 @@ document.addEventListener('DOMContentLoaded', () => {
             proPriority: "Konverter Tanpa Batas",
             proBuyBtn: "⭐ Aktifkan Versi PRO ($0.99)",
             proRestore: "Pulihkan Pembelian",
-            categories: {
+                        proPlanMonthly: "Paket Bulanan",
+            proPerMonth: "/ bln",
+            proPlanYearly: "Paket Tahunan",
+            proPerYear: "/ thn",
+            proYearlyBadge: "🔥 Hemat 44%",
+            proSubscribeBtn: "⭐ Langganan Sekarang",
+            proDisclaimer: "Langganan diperpanjang otomatis. Batalkan kapan saja di Google Play > Pembayaran & langganan.",
+            proPrivacy: "Kebijakan Privasi",
+            proTerms: "Syarat Penggunaan",
+categories: {
                 length: "📏 Panjang",
                 weight: "⚖️ Massa / Berat",
                 temp: "🌡️ Suhu",
@@ -378,7 +459,16 @@ document.addEventListener('DOMContentLoaded', () => {
             proPriority: "محول غير محدود",
             proBuyBtn: "⭐ تفعيل الإصدار الاحترافي ($0.99)",
             proRestore: "استعادة الشراء",
-            categories: {
+                        proPlanMonthly: "الخطة الشهرية",
+            proPerMonth: "/ شهر",
+            proPlanYearly: "الخطة السنوية",
+            proPerYear: "/ سنة",
+            proYearlyBadge: "🔥 توفير 44%",
+            proSubscribeBtn: "⭐ اشتراك الآن",
+            proDisclaimer: "يتجدد الاشتراك تلقائيًا. يمكنك الإلغاء في أي وقت من خلال Google Play > الدفعات والاشتراكات.",
+            proPrivacy: "سياسة الخصوصية",
+            proTerms: "شروط الاستخدام",
+categories: {
                 length: "📏 الطول",
                 weight: "⚖️ الكتلة / الوزن",
                 temp: "🌡️ درجة الحرارة",
@@ -414,7 +504,16 @@ document.addEventListener('DOMContentLoaded', () => {
             proPriority: "無制限コンバーター",
             proBuyBtn: "⭐ PRO版を有効化 ($0.99)",
             proRestore: "購入を復元",
-            categories: {
+                        proPlanMonthly: "月額プラン",
+            proPerMonth: "/ 月",
+            proPlanYearly: "年額プラン",
+            proPerYear: "/ 年",
+            proYearlyBadge: "🔥 44% お得",
+            proSubscribeBtn: "⭐ 今すぐ登録",
+            proDisclaimer: "定期購入は自動更新されます。Google Playの定期購入からいつでも解約できます。",
+            proPrivacy: "プライバシーポリシー",
+            proTerms: "利用規約",
+categories: {
                 length: "📏 長さ",
                 weight: "⚖️ 質量 / 重量",
                 temp: "🌡️ 温度",
@@ -450,7 +549,16 @@ document.addEventListener('DOMContentLoaded', () => {
             proPriority: "무제한 변환기",
             proBuyBtn: "⭐ PRO 버전 활성화 ($0.99)",
             proRestore: "구매 복원",
-            categories: {
+                        proPlanMonthly: "월간 플랜",
+            proPerMonth: "/ 월",
+            proPlanYearly: "연간 플랜",
+            proPerYear: "/ 년",
+            proYearlyBadge: "🔥 44% 할인",
+            proSubscribeBtn: "⭐ 구독하기",
+            proDisclaimer: "구독은 자동으로 갱신됩니다. Google Play > 결제 및 정기 결제에서 언제든지 취소할 수 있습니다.",
+            proPrivacy: "개인정보처리방침",
+            proTerms: "이용약관",
+categories: {
                 length: "📏 길이",
                 weight: "⚖️ 질량 / 무게",
                 temp: "🌡️ 온도",
@@ -574,10 +682,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentLang = localStorage.getItem('calcLang') || 'uz';
     let currentTheme = localStorage.getItem('calcTheme') || 'dark';
 
-    // PRO & MONETIZATION MANAGEMENT
+    // PRO & MONETIZATION MANAGEMENT (GOOGLE PLAY BILLING 9.1.0)
     function updateProStatus(proState) {
-        isUserPro = proState;
-        localStorage.setItem('isUserPro', proState);
+        isUserPro = !!proState;
 
         if (isUserPro) {
             proBadgeBtn.textContent = '👑 PRO Active';
@@ -589,13 +696,60 @@ document.addEventListener('DOMContentLoaded', () => {
             proBadgeBtn.classList.remove('active-pro');
             adMobBanner.classList.remove('hidden-pro');
             if (window.AdMobController) window.AdMobController.onProDeactivated();
+
+            // Revert exclusive pro themes if subscription is inactive
+            if (document.body.classList.contains('gold-theme') || document.body.classList.contains('cyberpunk-theme')) {
+                setTheme('dark');
+            }
         }
+        updateThemeButtonText();
+    }
+
+    // Connect to BillingController entitlement state changes
+    if (window.BillingController) {
+        window.BillingController.onProStateChanged((proActive) => {
+            updateProStatus(proActive);
+        });
     }
 
     updateProStatus(isUserPro);
 
+    // Plan card selection handling
+    const planMonthlyCard = document.getElementById('planMonthlyCard');
+    const planYearlyCard = document.getElementById('planYearlyCard');
+
+    if (planMonthlyCard && planYearlyCard) {
+        planMonthlyCard.addEventListener('click', () => {
+            triggerHaptic();
+            planMonthlyCard.classList.add('selected');
+            planYearlyCard.classList.remove('selected');
+            if (window.BillingController) window.BillingController.setSelectedPlan('monthly');
+        });
+
+        planYearlyCard.addEventListener('click', () => {
+            triggerHaptic();
+            planYearlyCard.classList.add('selected');
+            planMonthlyCard.classList.remove('selected');
+            if (window.BillingController) window.BillingController.setSelectedPlan('yearly');
+        });
+    }
+
     proBadgeBtn.addEventListener('click', () => {
         triggerHaptic();
+        if (isUserPro) {
+            alert(currentLang === 'uz'
+                ? "👑 Sizda Calculator PRO versiyasi faol!\nBarcha reklamalar o'chirilgan va eksklyuziv mavzular ochiq."
+                : "👑 Calculator PRO is active!\nAll ads removed and exclusive themes unlocked.");
+            return;
+        }
+
+        if (window.BillingController && typeof window.BillingController.fetchProductDetails === 'function') {
+            window.BillingController.fetchProductDetails().then(() => {
+                if (window.BillingController.updateUiPrices) {
+                    window.BillingController.updateUiPrices();
+                }
+            });
+        }
         proModal.classList.remove('hidden');
     });
 
@@ -604,18 +758,71 @@ document.addEventListener('DOMContentLoaded', () => {
         proModal.classList.add('hidden');
     });
 
-    buyProBtn.addEventListener('click', () => {
+    buyProBtn.addEventListener('click', async () => {
         triggerHaptic();
-        updateProStatus(true);
-        proModal.classList.add('hidden');
-        alert(currentLang === 'uz' ? "🎉 Calculator PRO versiyasi muvaffaqiyatli faollashtirildi!" : "🎉 Calculator PRO successfully activated!");
+        const selectedPlan = window.BillingController ? window.BillingController.getSelectedPlan() : 'yearly';
+
+        buyProBtn.disabled = true;
+        const originalText = buyProBtn.textContent;
+        buyProBtn.textContent = currentLang === 'uz' ? "⏳ Bog'lanmoqda..." : "⏳ Connecting...";
+
+        try {
+            if (window.BillingController) {
+                const res = await window.BillingController.purchase(selectedPlan);
+                if (res.success) {
+                    updateProStatus(true);
+                    proModal.classList.add('hidden');
+                    alert(currentLang === 'uz'
+                        ? "🎉 Calculator PRO versiyasi muvaffaqiyatli faollashtirildi!"
+                        : "🎉 Calculator PRO successfully activated!");
+                } else if (res.pending) {
+                    proModal.classList.add('hidden');
+                    alert(res.message);
+                } else if (res.canceled) {
+                    // Gracefully handle user cancel without noisy alert
+                } else {
+                    alert(res.message || (currentLang === 'uz' ? "Xarid amalga oshmadi." : "Purchase could not be completed."));
+                }
+            } else {
+                alert(currentLang === 'uz' ? "Google Play Billing xizmati mavjud emas." : "Billing service unavailable.");
+            }
+        } catch (err) {
+            alert(err && err.message ? err.message : "Xatolik yuz berdi.");
+        } finally {
+            buyProBtn.disabled = false;
+            buyProBtn.textContent = originalText;
+        }
     });
 
-    restorePurchaseBtn.addEventListener('click', () => {
+    restorePurchaseBtn.addEventListener('click', async () => {
         triggerHaptic();
-        updateProStatus(true);
-        proModal.classList.add('hidden');
-        alert(currentLang === 'uz' ? "✅ Xaridingiz muvaffaqiyatli qayta tiklandi!" : "✅ Purchase restored successfully!");
+        restorePurchaseBtn.disabled = true;
+        const originalText = restorePurchaseBtn.textContent;
+        restorePurchaseBtn.textContent = currentLang === 'uz' ? "⏳ Tekshirilmoqda..." : "⏳ Checking...";
+
+        try {
+            if (window.BillingController) {
+                const res = await window.BillingController.restorePurchases();
+                if (res.success) {
+                    updateProStatus(true);
+                    proModal.classList.add('hidden');
+                    alert(currentLang === 'uz'
+                        ? "✅ Xaridingiz muvaffaqiyatli qayta tiklandi!"
+                        : "✅ Purchase restored successfully!");
+                } else {
+                    alert(res.message || (currentLang === 'uz'
+                        ? "Ushbu Google Play hisobida faol obuna topilmadi."
+                        : "No active subscription found for this account."));
+                }
+            } else {
+                alert(currentLang === 'uz' ? "Google Play Billing xizmati mavjud emas." : "Billing service unavailable.");
+            }
+        } catch (err) {
+            alert(err && err.message ? err.message : "Xatolik yuz berdi.");
+        } finally {
+            restorePurchaseBtn.disabled = false;
+            restorePurchaseBtn.textContent = originalText;
+        }
     });
 
     // THEME SWITCHER
@@ -723,7 +930,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (imported.memoryValue) memoryValue = imported.memoryValue;
                     if (imported.currentLang) setLanguage(imported.currentLang);
                     if (imported.currentTheme) setTheme(imported.currentTheme);
-                    if (typeof imported.isUserPro === 'boolean') updateProStatus(imported.isUserPro);
+                    // SECURITY: Never allow JSON backup import to alter or grant PRO entitlement
 
                     renderHistory();
                     alert(currentLang === 'uz' ? "✅ Ma'lumotlar muvaffaqiyatli tiklandi!" : "✅ Data restored successfully!");

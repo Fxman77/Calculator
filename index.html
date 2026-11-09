@@ -367,14 +367,51 @@
                     <li>💾 <strong data-i18n="proBackup">Zahiraviy Nusxalash</strong> — Ma'lumotlarni eksport va import qilish</li>
                     <li>🚀 <strong data-i18n="proPriority">Cheksiz Convertor</strong> — Barqaror va tezkor hisoblash</li>
                 </ul>
+                <!-- Google Play Subscriptions (9.1.0) -->
+                <div class="subscription-plans">
+                    <!-- Monthly Plan -->
+                    <div id="planMonthlyCard" class="plan-card" data-plan="monthly">
+                        <div class="plan-info">
+                            <div class="plan-title" data-i18n="proPlanMonthly">Oylik obuna</div>
+                            <div class="plan-price-tag">
+                                <strong id="proPriceMonthly">$1.49</strong> <span data-i18n="proPerMonth">/ oy</span>
+                            </div>
+                        </div>
+                        <div class="plan-radio"></div>
+                    </div>
+
+                    <!-- Yearly Plan (Pre-selected) -->
+                    <div id="planYearlyCard" class="plan-card selected" data-plan="yearly">
+                        <span class="plan-badge" data-i18n="proYearlyBadge">🔥 44% Tejamkor</span>
+                        <div class="plan-info">
+                            <div class="plan-title" data-i18n="proPlanYearly">Yillik obuna</div>
+                            <div class="plan-price-tag">
+                                <strong id="proPriceYearly">$9.99</strong> <span data-i18n="proPerYear">/ yil</span>
+                            </div>
+                        </div>
+                        <div class="plan-radio"></div>
+                    </div>
+                </div>
+
                 <div class="pro-actions">
-                    <button id="buyProBtn" class="buy-pro-btn" data-i18n="proBuyBtn">⭐ PRO versiyani faollashtirish ($0.99)</button>
+                    <button id="buyProBtn" class="buy-pro-btn" data-i18n="proSubscribeBtn">⭐ Obuna bo'lish</button>
                     <button id="restorePurchaseBtn" class="secondary-btn" data-i18n="proRestore">Xaridni tiklash</button>
+                </div>
+
+                <!-- Google Play Disclosures & Legal links -->
+                <div class="pro-legal">
+                    <p data-i18n="proDisclaimer">Obuna avtomatik yangilanadi. Istalgan vaqtda Google Play &gt; To'lovlar va obunalar bo'limida bekor qilishingiz mumkin.</p>
+                    <div class="pro-legal-links">
+                        <a href="https://fxman77.github.io/Calculator/privacy_policy.html" target="_blank" rel="noopener noreferrer" class="pro-legal-link" data-i18n="proPrivacy">Maxfiylik siyosati</a>
+                        <span>•</span>
+                        <a href="https://fxman77.github.io/Calculator/privacy_policy.html#terms" target="_blank" rel="noopener noreferrer" class="pro-legal-link" data-i18n="proTerms">Foydalanish shartlari</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="billing.js"></script>
     <script src="admob.js"></script>
     <script src="app.js"></script>
 </body>

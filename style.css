@@ -1234,6 +1234,8 @@ body {
     padding: 28px 22px;
     width: 100%;
     max-width: 360px;
+    max-height: 90vh;
+    overflow-y: auto;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -1379,4 +1381,137 @@ body {
 }
 [dir="rtl"] .pro-benefits {
     text-align: right;
+}
+
+/* SUBSCRIPTION PLAN SELECTOR CARDS (Google Play Billing 9.1.0) */
+.subscription-plans {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 4px 0;
+}
+
+.plan-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    background: var(--display-bg);
+    border: 2px solid var(--display-border);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    text-align: left;
+    user-select: none;
+}
+
+.plan-card:hover {
+    border-color: rgba(245, 158, 11, 0.5);
+}
+
+.plan-card.selected {
+    border-color: #F59E0B;
+    background: rgba(245, 158, 11, 0.08);
+    box-shadow: 0 0 14px rgba(245, 158, 11, 0.22);
+}
+
+.plan-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.plan-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.plan-price-tag {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.plan-price-tag strong {
+    color: #F59E0B;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.plan-badge {
+    position: absolute;
+    top: -10px;
+    right: 12px;
+    background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+    color: #FFFFFF;
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    letter-spacing: 0.03em;
+    box-shadow: 0 2px 6px rgba(239, 68, 68, 0.35);
+}
+
+.plan-radio {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+}
+
+.plan-card.selected .plan-radio {
+    border-color: #F59E0B;
+    background: #F59E0B;
+}
+
+.plan-card.selected .plan-radio::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #FFFFFF;
+}
+
+.pro-legal {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin-top: 4px;
+}
+
+.pro-legal-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.pro-legal-link {
+    color: var(--text-muted);
+    text-decoration: underline;
+    font-size: 0.72rem;
+}
+
+.pro-legal-link:hover {
+    color: var(--text-main);
+}
+
+/* RTL overrides for plan cards */
+[dir="rtl"] .plan-card {
+    text-align: right;
+    flex-direction: row-reverse;
+}
+[dir="rtl"] .plan-badge {
+    right: auto;
+    left: 12px;
 }

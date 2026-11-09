@@ -6,11 +6,11 @@
 (function(window) {
     'use strict';
 
-    // Official Google AdMob Test IDs (Safe for Closed Testing)
+    // Official Google AdMob Production IDs for Calculator & Converter
     const AD_CONFIG = {
-        appId: 'ca-app-pub-3940256099942544~3347511713',
-        bannerId: 'ca-app-pub-3940256099942544/6300978111',
-        interstitialId: 'ca-app-pub-3940256099942544/1033173712'
+        appId: 'ca-app-pub-2910631304019617~9548598201',
+        bannerId: 'ca-app-pub-2910631304019617/1729963728',
+        interstitialId: 'ca-app-pub-2910631304019617/8335124239'
     };
 
     // Natural Pacing rules for Interstitial to ensure pleasant UX
@@ -41,6 +41,9 @@
 
     // Helper: Check PRO status
     function isUserPro() {
+        if (typeof window !== 'undefined' && window.BillingController && typeof window.BillingController.isUserPro === 'function') {
+            return window.BillingController.isUserPro();
+        }
         try {
             return localStorage.getItem('isUserPro') === 'true';
         } catch (e) {
@@ -48,47 +51,83 @@
         }
     }
 
+    // Helper: Determine whether test mode should be active
+    // Uses Capacitor's official native runtime flag (window.Capacitor.DEBUG), which is tied
+    // directly to Android's ApplicationInfo.FLAG_DEBUGGABLE:
+    //   - Debug build (assembleDebug): window.Capacitor.DEBUG is true -> isTesting: true
+    //   - Release build (bundleRelease / assembleRelease): window.Capacitor.DEBUG is false -> isTesting: false
+    function isTestingMode() {
+        if (typeof window !== 'undefined' && typeof window.__ADMOB_TEST_MODE__ === 'boolean') {
+            return window.__ADMOB_TEST_MODE__;
+        }
+        if (typeof window !== 'undefined' && window.Capacitor && window.Capacitor.DEBUG === true) {
+            return true;
+        }
+        return false;
+    }
+
     const AdMobController = {
         // Initialize AdMob when running natively
         async init() {
+            if (isInitialized) return;
+
             isNative = checkIsNative();
             if (!isNative) {
                 // Vercel / Web browser: do nothing, zero errors
                 return;
             }
 
+            // Hide empty HTML AdSense placeholder only on native Android
+            const htmlBanner = document.getElementById('adMobBanner');
+            if (htmlBanner) {
+                htmlBanner.style.display = 'none';
+            }
+
             const AdMob = getAdMobPlugin();
             if (!AdMob) return;
 
+            // Register listeners BEFORE initializing and loading ads
+            if (typeof AdMob.addListener === 'function') {
+                AdMob.addListener('bannerAdLoaded', () => {
+                    console.log('[AdMob] Banner loaded successfully');
+                });
+                AdMob.addListener('bannerAdFailedToLoad', (err) => {
+                    console.warn('[AdMob] Banner failed to load:', err);
+                });
+                AdMob.addListener('interstitialAdDismissed', () => {
+                    isInterstitialReady = false;
+                    lastAdShownTime = Date.now();
+                    setTimeout(() => {
+                        AdMobController.prepareInterstitial();
+                    }, 5000);
+                });
+                AdMob.addListener('interstitialAdFailedToLoad', (err) => {
+                    console.warn('[AdMob] Interstitial failed to load:', err);
+                    isInterstitialLoading = false;
+                    isInterstitialReady = false;
+                });
+                AdMob.addListener('interstitialAdLoaded', (info) => {
+                    console.log('[AdMob] Interstitial loaded and ready:', info);
+                    isInterstitialLoading = false;
+                    isInterstitialReady = true;
+                });
+            }
+
             try {
                 await AdMob.initialize({
-                    requestTrackingAuthorization: true,
-                    testingDevices: ['EMULATOR'],
-                    initializeForTesting: true
+                    initializeForTesting: true,
+                    testingDevices: [
+                        'EMULATOR',
+                        '9B63947FE9900B5DE1BCD0F4F9169188', // Production package (myapp.fxman77) on Infinix X682C
+                        '5380B46B10312A2A3EE2E044D31DA098'  // Debug package (myapp.fxman77.debug) on Infinix X682C
+                    ]
                 });
                 isInitialized = true;
+                console.log('[AdMob] Native SDK initialized successfully. Test mode:', isTestingMode());
 
                 if (!isUserPro()) {
                     await this.showBanner();
                     await this.prepareInterstitial();
-                }
-
-                if (typeof AdMob.addListener === 'function') {
-                    AdMob.addListener('interstitialAdDismissed', () => {
-                        isInterstitialReady = false;
-                        lastAdShownTime = Date.now();
-                        setTimeout(() => {
-                            AdMobController.prepareInterstitial();
-                        }, 5000);
-                    });
-                    AdMob.addListener('interstitialAdFailedToLoad', () => {
-                        isInterstitialLoading = false;
-                        isInterstitialReady = false;
-                    });
-                    AdMob.addListener('interstitialAdLoaded', () => {
-                        isInterstitialLoading = false;
-                        isInterstitialReady = true;
-                    });
                 }
             } catch (err) {
                 console.warn('[AdMobController] Native init bypassed:', err && err.message ? err.message : err);
@@ -101,13 +140,14 @@
             const AdMob = getAdMobPlugin();
             if (!AdMob) return;
 
+            const isTest = isTestingMode();
             try {
                 await AdMob.showBanner({
                     adId: AD_CONFIG.bannerId,
                     adSize: 'BANNER',
                     position: 'BOTTOM_CENTER',
                     margin: 0,
-                    isTesting: true
+                    isTesting: isTest
                 });
             } catch (err) {
                 console.warn('[AdMobController] showBanner:', err && err.message ? err.message : err);
@@ -134,13 +174,15 @@
             const AdMob = getAdMobPlugin();
             if (!AdMob) return;
 
+            const isTest = isTestingMode();
             try {
                 isInterstitialLoading = true;
                 await AdMob.prepareInterstitial({
                     adId: AD_CONFIG.interstitialId,
-                    isTesting: true
+                    isTesting: isTest
                 });
             } catch (err) {
+                console.warn('[AdMobController] prepareInterstitial failed:', err && err.message ? err.message : err);
                 isInterstitialLoading = false;
                 isInterstitialReady = false;
             }
