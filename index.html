@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maxfiylik Siyosati & Foydalanish Shartlari — Calculator App</title>
+    <style>
+        :root {
+            --bg-color: #0B0F19;
+            --card-bg: #131B2E;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --accent: #38BDF8;
+            --accent-glow: rgba(56, 189, 248, 0.15);
+            --border-color: #1E293B;
+            --emerald: #10B981;
+            --gold: #F59E0B;
+            --gold-glow: rgba(245, 158, 11, 0.15);
+            --danger: #EF4444;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.65;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 32px 20px 80px;
+        }
+
+        header {
+            text-align: center;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 28px;
+        }
+
+        .logo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-glow);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            padding: 6px 18px;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 14px;
+        }
+
+        h1 {
+            font-size: 30px;
+            font-weight: 800;
+            margin: 0 0 8px;
+            letter-spacing: -0.5px;
+            color: #FFFFFF;
+        }
+
+        .meta-info {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* NAVIGATION BAR & TABS */
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+            background: var(--card-bg);
+            padding: 12px 16px;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+        }
+
+        .doc-tabs, .lang-tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tab-btn {
+            background: #1E293B;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tab-btn:hover {
+            color: #FFFFFF;
+            border-color: var(--accent);
+        }
+
+        .tab-btn.active {
+            background: #0284C7;
+            color: #FFFFFF;
+            border-color: #38BDF8;
+        }
+
+        /* SECTION CARDS */
+        .section-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #E2E8F0;
+            margin-top: 0;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 18px 0 8px;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin: 0 0 12px;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        ul {
+            margin: 8px 0 14px 20px;
+            padding: 0;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        strong {
+            color: #F1F5F9;
+        }
+
+        .badge-pro {
+            background: var(--gold-glow);
+            color: var(--gold);
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .highlight-box {
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin: 14px 0;
+        }
+
+        .highlight-box p {
+            color: #BAE6FD;
+            font-size: 13px;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .highlight-box.warning {
+            background: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.25);
+        }
+
+        .highlight-box.warning p {
+            color: #FECACA;
+        }
+
+        .todo-tag {
+            background: rgba(239, 68, 68, 0.2);
+            color: #F87171;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-family: monospace;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding-top: 32px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        /* Language Visibility Controls */
+        .content-uz, .content-en {
+            display: block;
+        }
+
+        body.lang-uz .content-en {
+            display: none;
+        }
+
+        body.lang-en .content-uz {
+            display: none;
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 13px;
+        }
+
+        .pricing-table th, .pricing-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        .pricing-table th {
+            background: #1E293B;
+            color: #FFFFFF;
+        }
+
+        .pricing-table td {
+            background: rgba(15, 23, 42, 0.5);
+        }
+    </style>
+</head>
+<body class="lang-uz">
+
+<div class="container">
+    <header>
+        <div class="logo-badge">🧮 Calculator & Unit Converter (myapp.fxman77)</div>
+        <h1 class="content-uz">Maxfiylik Siyosati & Foydalanish Shartlari</h1>
+        <h1 class="content-en">Privacy Policy & Terms of Service</h1>
+        <div class="meta-info content-uz">Oxirgi tahrir: 2026-yil 8-noyabr • Versiya: 1.3.0</div>
+        <div class="meta-info content-en">Last Updated: November 8, 2026 • Version: 1.3.0</div>
+    </header>
+
+    <!-- NAVIGATION BAR -->
+    <div class="nav-controls">
+        <div class="doc-tabs">
+            <a href="#privacy" class="tab-btn active" id="tabPrivacyBtn">🔒 <span class="content-uz">Maxfiylik</span><span class="content-en">Privacy</span></a>
+            <a href="#terms" class="tab-btn" id="tabTermsBtn">📜 <span class="content-uz">Foydalanish Shartlari</span><span class="content-en">Terms of Service</span></a>
+        </div>
+        <div class="lang-tabs">
+            <button class="tab-btn active" id="btnLangUz" onclick="setLanguage('uz')">🇺🇿 O'zbekcha</button>
+            <button class="tab-btn" id="btnLangEn" onclick="setLanguage('en')">🇬🇧 English</button>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SECTION 1: PRIVACY POLICY (MAXFIYLIK)      -->
+    <!-- ========================================== -->
+    <section id="privacy">
+        <!-- O'ZBEKCHA MAXFIYLIK -->
+        <div class="content-uz">
+            <div class="section-card">
+                <h2>1. Umumiy qoidalar va Ma'lumotlar xavfsizligi</h2>
+                <p>Ushbu Maxfiylik Siyosati <strong>Calculator & Unit Converter (myapp.fxman77)</strong> mobil ilovasi ("biz", "ilova") foydalanuvchilarining ma'lumotlarini qanday qayta ishlashi va himoyalashini tushuntiradi.</p>
+                <div class="highlight-box">
+                    <p>✓ <strong>Shaxsiy ma'lumotlarni yig'maslik:</strong> Ilova foydalanuvchilardan ro'yxatdan o'tish, shaxsiy hisob ochish, to'liq ism, elektron pochta, telefon raqami, kontaktlar ro'yxati yoki aniq GPS joylashuvini talab qilmaydi va yig'maydi.</p>
+                </div>
+                <p>Standart arifmetik, ilmiy hisoblashlar va birliklarni konvertatsiya qilish amallari 100% foydalanuvchi qurilmasining protsessorida (offline) amalga oshiriladi.</p>
+            </div>
+
+            <div class="section-card">
+                <h2>2. Mahalliy xotira (Local Device Storage)</h2>
+                <p>Ilova o'z faoliyati davomida faqatgina ilova ichki ishlashi uchun zarur bo'lgan quyidagi sozlamalarni qurilmaning shaxsiy xotirasida (localStorage) saqlaydi:</p>
+                <ul>
+                    <li>Tanlangan vizual mavzu (Dark, Light, Gold Luxe, Cyberpunk);</li>
+                    <li>Tanlangan interfeys tili (12 ta til);</li>
+                    <li>Hisoblashlar tarixi va xotiradagi qiymat (M+, M-, MR);</li>
+                    <li>Foydalanuvchi tomonidan eksport qilingan/import qilinadigan ixtiyoriy zaxira fayllari (JSON).</li>
+                </ul>
+                <p>Ushbu ma'lumotlar foydalanuvchi qurilmasidan tashqariga yoki uchinchi tomon serverlariga yuborilmaydi.</p>
+            </div>
+
+            <div class="section-card">
+                <h2>3. Uchinchi tomon xizmatlari va Reklamalar (Google AdMob)</h2>
+                <p>Ilovaning bepul versiyasini qo'llab-quvvatlash va barqaror rivojlantirish maqsadida <strong>Google AdMob (Google Mobile Ads SDK)</strong> xizmati integratsiya qilingan.</p>
+                <p>Google AdMob reklama ko'rsatish, noqonuniy trafik (ad fraud) oldini olish va xizmat sifatini oshirish uchun qurilmaning ayrim texnik ma'lumotlarini avtomatik tarzda qayta ishlashi mumkin:</p>
+                <ul>
+                    <li>Anonim Reklama Identifikatori (<strong>Google Advertising ID / AD_ID</strong>);</li>
+                    <li>Qurilma modeli, ishlab chiqaruvchi va operatsion tizim versiyasi;</li>
+                    <li>Tarmoq ulanish holati va taxminiy (shahar/mamlakat darajasidagi) geografik mintaqa;</li>
+                    <li>Reklama ko'rishlar, bosishlar va diagnostika statistikasi.</li>
+                </ul>
+                <p>Google reklama ma'lumotlarini qanday qayta ishlashi haqida batafsil ma'lumot: 
+                    <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">Google Maxfiylik va Reklama Qoidalari</a>.
+                </p>
+                <p>Foydalanuvchilar o'z qurilmasi orqali (<em>Sozlamalar &gt; Google &gt; Reklamalar</em>) reklama identifikatorini qayta o'rnatishi yoki moslashtirilgan reklamalardan voz kechishi mumkin.</p>
+                <div class="highlight-box">
+                    <p>👑 <strong>Calculator PRO obunachilari:</strong> PRO holatida barcha AdMob bannerlari va to'liq ekranli reklamalar butunlay o'chiriladi.</p>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>4. Google Play Billing va Ichki xaridlar</h2>
+                <p>Calculator PRO obunasini xarid qilish Google'ning rasmiy <strong>Google Play Billing Library 9.1.0</strong> tizimi orqali amalga oshiriladi.</p>
+                <ul>
+                    <li>Barcha to'lov amallari, bank kartalari va tranzaksiyalar to'g'ridan-to'g'ri <strong>Google Play</strong> tomonidan xavfsiz qayta ishlanadi. Biz foydalanuvchining bank yoki to'lov ma'lumotlarini aslo ko'rmaymiz va saqlamaymiz;</li>
+                    <li>Ilova faqatgina Google Play tomonidan berilgan xarid kvitansiyasini (purchaseToken va purchaseState) obunani tasdiqlash uchun tekshiradi;</li>
+                    <li>To'lov holati kutilayotgan (PENDING) bo'lsa, xarid to'liq yakunlanmaguncha PRO imkoniyatlari berilmaydi.</li>
+                </ul>
+            </div>
+
+            <div class="section-card">
+                <h2>5. Internet ulanishi talablari</h2>
+                <p>Ilova quyidagi funksiyalar uchun internet tarmog'iga ulanishni talab qiladi:</p>
+                <ul>
+                    <li>Google AdMob reklamalarini yuklash va yangilash (faqat bepul rejimda);</li>
+                    <li>Google Play Billing orqali obuna holatini tasdiqlash, acknowledge qilish va qayta tiklash (Restore);</li>
+                    <li>Birliklar konvertorida valyuta kurslarini yangilash.</li>
+                </ul>
+                <p>Kalkulyatorning asosiy hisob-kitob funksiyalari internet ulanishisiz ham to'liq ishlaydi.</p>
+            </div>
+
+            <div class="section-card">
+                <h2>6. Bolalar maxfiyligi (COPPA & Families Policy)</h2>
+                <p>Ilova umumiy auditoriya uchun mo'ljallangan bo'lib, 13 yoshga to'lmagan (Yevropa Ittifoqida 16 yoshgacha bo'lgan) bolalardan shaxsiy ma'lumotlarni bila turib yig'maydi.</p>
+            </div>
+
+            <div class="section-card">
+                <h2>7. Bog'lanish va Dasturchi ma'lumotlari</h2>
+                <p>Maxfiylik siyosati bo'yicha savollaringiz yoki takliflaringiz bo'lsa, biz bilan bog'lanishingiz mumkin:</p>
+                <ul>
+                    <li>Dasturchi / Loyiha: <strong>Fxman77</strong></li>
+                    <li>Aloqa emaili: <code>uznayab777@gmail.com</code></li>
+                    <li>Loyiha kodi: <code>myapp.fxman77</code></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ENGLISH PRIVACY POLICY -->
+        <div class="content-en">
+            <div class="section-card">
+                <h2>1. Overview & Data Protection</h2>
+                <p>This Privacy Policy explains how <strong>Calculator & Unit Converter (myapp.fxman77)</strong> ("we", "our", or "the App") collects, handles, and protects user data.</p>
+                <div class="highlight-box">
+                    <p>✓ <strong>Zero Personal Identity Collection:</strong> The App does not require registration, accounts, full names, email addresses, phone numbers, contact lists, or precise GPS location data.</p>
+                </div>
+                <p>All core arithmetic, scientific calculations, and unit conversions are executed 100% locally on your device hardware (offline).</p>
+            </div>
+
+            <div class="section-card">
+                <h2>2. Local Device Storage</h2>
+                <p>The App stores only essential preference data locally within private application storage on your device (localStorage):</p>
+                <ul>
+                    <li>Selected theme preference (Dark, Light, Gold Luxe, Cyberpunk);</li>
+                    <li>Selected interface language (12 supported languages);</li>
+                    <li>Calculation history records and memory value (M+, M-, MR);</li>
+                    <li>User-initiated optional data backup exports/imports (JSON).</li>
+                </ul>
+                <p>This data remains strictly under your control on your device and is never uploaded to remote servers.</p>
+            </div>
+
+            <div class="section-card">
+                <h2>3. Third-Party Services & Advertising (Google AdMob)</h2>
+                <p>To support ongoing maintenance and provide the free version, the App integrates <strong>Google AdMob (Google Mobile Ads SDK)</strong>.</p>
+                <p>Google AdMob may automatically process certain technical and diagnostic device data in accordance with Google Advertising Policies:</p>
+                <ul>
+                    <li>Anonymous Advertising Identifier (<strong>Google Advertising ID / AD_ID</strong>);</li>
+                    <li>Device model, manufacturer, and operating system version;</li>
+                    <li>Network connection status and coarse (city/country-level) geographic area;</li>
+                    <li>Ad impressions, click interactions, and crash diagnostics.</li>
+                </ul>
+                <p>To learn how Google manages advertising data, visit: 
+                    <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">Google Privacy & Terms for Advertising</a>.
+                </p>
+                <p>You can reset or opt out of personalized ads at any time via your device settings (<em>Settings &gt; Google &gt; Ads</em>).</p>
+                <div class="highlight-box">
+                    <p>👑 <strong>Calculator PRO Users:</strong> All AdMob banner and interstitial advertisements are 100% disabled upon PRO activation.</p>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>4. In-App Purchases & Subscriptions (Google Play Billing)</h2>
+                <p>Subscriptions for Calculator PRO are processed securely via the official <strong>Google Play Billing Library 9.1.0</strong>.</p>
+                <ul>
+                    <li>All financial transactions, payment processing, and billing data are handled exclusively by <strong>Google Play</strong>. We do not receive, store, or have access to your payment card details or financial credentials;</li>
+                    <li>The App only receives cryptographically signed purchase tokens and purchase states from Google Play to verify PRO entitlement;</li>
+                    <li>Pending purchases (PENDING state) do not grant PRO privileges until payment has officially cleared.</li>
+                </ul>
+            </div>
+
+            <div class="section-card">
+                <h2>5. Internet Connectivity Requirements</h2>
+                <p>Internet access is required solely for:</p>
+                <ul>
+                    <li>Loading and refreshing Google AdMob ads (in free tier only);</li>
+                    <li>Authenticating, acknowledging, and restoring Google Play Billing subscriptions;</li>
+                    <li>Updating live currency exchange rates when requested in Converter mode.</li>
+                </ul>
+                <p>Standard calculation and conversion capabilities operate completely offline.</p>
+            </div>
+
+            <div class="section-card">
+                <h2>6. Children's Privacy (COPPA & Families Policy)</h2>
+                <p>The App is designed for general audiences and does not knowingly collect personal information from children under 13 (or under 16 in the European Union).</p>
+            </div>
+
+            <div class="section-card">
+                <h2>7. Contact & Developer Information</h2>
+                <p>For questions or privacy inquiries, please contact us at:</p>
+                <ul>
+                    <li>Developer: <strong>Fxman77</strong></li>
+                    <li>Support Email: <code>uznayab777@gmail.com</code></li>
+                    <li>Application Package: <code>myapp.fxman77</code></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 2: TERMS OF SERVICE (SHARTLAR)     -->
+    <!-- ========================================== -->
+    <section id="terms">
+        <!-- O'ZBEKCHA FOYDALANISH SHARTLARI -->
+        <div class="content-uz">
+            <div class="section-card">
+                <h2>📜 Foydalanish Shartlari (Terms of Service)</h2>
+                <p>Ushbu Foydalanish Shartlari <strong>Calculator & Unit Converter (myapp.fxman77)</strong> ilovasidan foydalanish qoidalarini belgilaydi. Ilovadan foydalanish mazkur shartlarga to'liq rozilik bildirishni anglatadi.</p>
+            </div>
+
+            <div class="section-card">
+                <h2>1. Calculator PRO Obunasi va Imkoniyatlari</h2>
+                <p>Calculator PRO obunasi foydalanuvchiga ilovadagi barcha cheklovlarni olib tashlash va qo'shimcha qulayliklardan foydalanish huquqini beradi:</p>
+                <ul>
+                    <li>🚫 <strong>100% Reklamasiz:</strong> Banner va oraliq reklamalar butunlay o'chiriladi;</li>
+                    <li>👑 <strong>Eksklyuziv Mavzular:</strong> "Gold Luxe" va "Cyberpunk Neon" maxsus dizaynlari ochiladi;</li>
+                    <li>💾 <strong>Zahiraviy Nusxalash:</strong> Hisob-kitoblar tarixi va xotirasini eksport va import qilish;</li>
+                    <li>⚡ <strong>Cheksiz Konvertor:</strong> Barcha birliklar va valyutalar bo'yicha cheklovlarsiz hisoblash.</li>
+                </ul>
+            </div>
+
+            <div class="section-card">
+                <h2>2. Tariflar va To'lovlar</h2>
+                <p>Calculator PRO quyidagi ikkita avtomatik yangilanuvchi obuna rejasini taklif etadi:</p>
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>Tarif</th>
+                            <th>Muddati</th>
+                            <th>Standart Narx (USD)</th>
+                            <th>Tavsif</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Oylik Reja</strong> (<code>monthly</code>)</td>
+                            <td>1 oy</td>
+                            <td>$1.49 / oy</td>
+                            <td>Moslashuvchan oylik to'lov</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Yillik Reja</strong> (<code>yearly</code>)</td>
+                            <td>1 yil</td>
+                            <td>$9.99 / yil</td>
+                            <td>🔥 Tejamkor tarif (44% chegirma)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><em>Eslatma: Haqiqiy narxlar va soliqlar Google Play Store tomonidan foydalanuvchining mamlakati va hisob valyutasiga qarab mahalliy valyutada hisoblanadi.</em></p>
+            </div>
+
+            <div class="section-card">
+                <h2>3. Avtomatik Yangilanish va Obunani Bekor Qilish</h2>
+                <ul>
+                    <li><strong>Avtomatik yangilanish:</strong> Obuna amaldagi to'langan davr tugashidan kamida 24 soat oldin bekor qilinmasa, avtomatik tarzda xuddi shu muddat va narxda uzaytiriladi;</li>
+                    <li><strong>Bekor qilish tartibi:</strong> Foydalanuvchi istalgan vaqtda obunani <em>Google Play Store &gt; Profil belgisi &gt; To'lovlar va obunalar &gt; Obunalar</em> bo'limidan bekor qilishi mumkin;</li>
+                    <li><strong>Bekor qilingandagi holat:</strong> Obuna bekor qilinganda ham, joriy to'langan muddat tugaguncha barcha PRO imkoniyatlari to'liq saqlanib qoladi. To'langan muddat tugagach, ilova bepul (reklamali) holatga qaytadi.</li>
+                </ul>
+            </div>
+
+            <div class="section-card">
+                <h2>4. Pulni Qaytarish Siyosati (Refund Policy)</h2>
+                <p>Barcha to'lovlar va pulni qaytarish masalalari to'liq <a href="https://support.google.com/googleplay/answer/2479637" target="_blank" rel="noopener noreferrer">Google Play Pul Qaytarish Qoidalari</a> doirasida hal etiladi.</p>
+                <p>Dasturchi Google Play orqali o'tgan to'lovlarni bevosita qaytarish vakolatiga ega emas; barcha arizalar Google Play orqali yuborilishi shart.</p>
+            </div>
+
+            <div class="section-card">
+                <h2>5. Mas'uliyatni Cheklash</h2>
+                <p>Ilova hisob-kitoblari va birliklar konvertatsiyasi "boricha" (as-is) taqdim etiladi. Dastur algoritmlari yuqori aniqlikda sinovdan o'tgan bo'lsa-da, o'ta muhim moliyaviy, ilmiy yoki tibbiy hisoblashlar natijalarini mustaqil ravishda qo'shimcha tekshirish tavsiya etiladi.</p>
+            </div>
+        </div>
+
+        <!-- ENGLISH TERMS OF SERVICE -->
+        <div class="content-en">
+            <div class="section-card">
+                <h2>📜 Terms of Service</h2>
+                <p>These Terms of Service govern your use of <strong>Calculator & Unit Converter (myapp.fxman77)</strong>. By using the Application, you agree to comply with and be bound by these terms.</p>
+            </div>
+
+            <div class="section-card">
+                <h2>1. Calculator PRO Subscription Features</h2>
+                <p>Calculator PRO unlocks an enhanced, distraction-free utility experience:</p>
+                <ul>
+                    <li>🚫 <strong>100% Ad-Free:</strong> Complete removal of banner and interstitial advertisements;</li>
+                    <li>👑 <strong>Exclusive Themes:</strong> Unlocks "Gold Luxe" and "Cyberpunk Neon" themes;</li>
+                    <li>💾 <strong>Data Backup:</strong> Unlimited export and import of history and memory entries;</li>
+                    <li>⚡ <strong>Priority Conversion:</strong> Unlimited rapid conversion across all categories.</li>
+                </ul>
+            </div>
+
+            <div class="section-card">
+                <h2>2. Subscription Plans & Pricing</h2>
+                <p>Calculator PRO is available through two auto-renewing subscription options:</p>
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>Plan</th>
+                            <th>Period</th>
+                            <th>Standard Price (USD)</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Monthly Plan</strong> (<code>monthly</code>)</td>
+                            <td>1 Month</td>
+                            <td>$1.49 / mo</td>
+                            <td>Flexible monthly recurring billing</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Yearly Plan</strong> (<code>yearly</code>)</td>
+                            <td>1 Year</td>
+                            <td>$9.99 / yr</td>
+                            <td>🔥 Best Value (44% discount)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><em>Actual prices, currency conversions, and applicable taxes are determined directly by Google Play based on your country and Google account.</em></p>
+            </div>
+
+            <div class="section-card">
+                <h2>3. Auto-Renewal & Cancellation Policy</h2>
+                <ul>
+                    <li><strong>Auto-Renewal:</strong> Subscriptions automatically renew unless cancelled at least 24 hours prior to the end of the current billing cycle;</li>
+                    <li><strong>How to Cancel:</strong> You can manage or cancel your subscription at any time via <em>Google Play Store &gt; Profile &gt; Payments & subscriptions &gt; Subscriptions</em>;</li>
+                    <li><strong>Access Retention:</strong> Cancelling auto-renewal preserves your full PRO access until the end of the current pre-paid cycle. Upon expiration, the App reverts to standard ad-supported mode.</li>
+                </ul>
+            </div>
+
+            <div class="section-card">
+                <h2>4. Refund Policy</h2>
+                <p>All subscription billing and refund requests are governed strictly by the official <a href="https://support.google.com/googleplay/answer/2479637" target="_blank" rel="noopener noreferrer">Google Play Refund Policies</a>.</p>
+                <p>We do not directly collect or process payments; refund inquiries must be initiated through Google Play support.</p>
+            </div>
+
+            <div class="section-card">
+                <h2>5. Disclaimer of Warranties</h2>
+                <p>The Application is provided on an "as is" and "as available" basis. While mathematical routines are rigorously verified, users are encouraged to independently verify mission-critical financial, engineering, or legal calculations.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Calculator & Unit Converter (myapp.fxman77). All Rights Reserved.</p>
+        <p><span class="todo-tag">Fxman77</span> Fxman77 • Support: <code>uznayab777@gmail.com</code></p>
+    </footer>
+</div>
+
+<script>
+    function setLanguage(lang) {
+        document.body.classList.remove('lang-uz', 'lang-en');
+        document.body.classList.add('lang-' + lang);
+        document.getElementById('btnLangUz').classList.toggle('active', lang === 'uz');
+        document.getElementById('btnLangEn').classList.toggle('active', lang === 'en');
+        try {
+            localStorage.setItem('docLang', lang);
+        } catch (e) {}
+    }
+
+    function switchDocTab(hash) {
+        const isTerms = (hash === '#terms');
+        document.getElementById('tabTermsBtn').classList.toggle('active', isTerms);
+        document.getElementById('tabPrivacyBtn').classList.toggle('active', !isTerms);
+    }
+
+    // Auto-detect hash navigation
+    window.addEventListener('hashchange', () => {
+        switchDocTab(window.location.hash);
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+        try {
+            const saved = localStorage.getItem('docLang');
+            if (saved === 'en' || saved === 'uz') setLanguage(saved);
+        } catch (e) {}
+
+        if (window.location.hash === '#terms') {
+            switchDocTab('#terms');
+        } else {
+            switchDocTab('#privacy');
+        }
+    });
+</script>
+</body>
+</html>
