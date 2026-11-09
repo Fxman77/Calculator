@@ -15,11 +15,13 @@ const filesToCopy = [
     'index.html',
     'style.css',
     'app.js',
+    'billing.js',
     'admob.js',
     'sw.js',
     'manifest.json',
     'icon-192.png',
-    'icon-512.png'
+    'icon-512.png',
+    'privacy_policy.html'
 ];
 
 console.log('Copying web assets to www/...');
